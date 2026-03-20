@@ -5,4 +5,4 @@ title: Contact
 
 ## Contact
 
-Add your contact info here.
+If you are a ham, you can contact me on qrz.com.

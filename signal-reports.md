@@ -3,23 +3,36 @@ layout: default
 title: Signal Reports
 ---
 
-## Signal Reports
+## 📡 Signal Log
 
-| Date | Time | Band/Freq | Mode | Station | Location | Signal Report | Notes |
-|------|------|-----------|------|---------|----------|---------------|-------|
-| 2026-03-20 | 19:30 | 146.520 MHz | FM | KX9ABC | Seattle, WA | 59 | Clear audio, handheld to base |
-| 2026-03-20 | 20:10 | GMRS Ch. 16 | FM | WRXX123 | Tacoma, WA | 57 | Slight noise |
-| 2026-03-21 | 08:45 | 14.230 MHz | USB | N7XYZ | Portland, OR | 55 | Light fading |
+---
 
-### Report Format
+<div class="log-entry">
+  <div class="log-header">146.520 MHz FM</div>
+  <div class="log-meta">2026-03-20 • 19:30 • Seattle, WA</div>
+  <div>
+    Station: KX9ABC  
+    Signal: <span class="signal s59">59</span>
+  </div>
+  <p>Clear audio, handheld to base.</p>
+</div>
 
-Common ham shorthand:
+<div class="log-entry">
+  <div class="log-header">GMRS Channel 16</div>
+  <div class="log-meta">2026-03-20 • 20:10 • Tacoma, WA</div>
+  <div>
+    Station: WRXX123  
+    Signal: <span class="signal s57">57</span>
+  </div>
+  <p>Slight noise, but readable.</p>
+</div>
 
-- **59** = strong, clear signal
-- **57** = good readable signal with some noise
-- **55** = fair signal
-- **41** = weak and hard to copy
-
-### Notes
-
-You can update this table anytime with new contacts, band conditions, or equipment notes.
+<div class="log-entry">
+  <div class="log-header">14.230 MHz USB</div>
+  <div class="log-meta">2026-03-21 • 08:45 • Portland, OR</div>
+  <div>
+    Station: N7XYZ  
+    Signal: <span class="signal s55">55</span>
+  </div>
+  <p>Light fading, stable contact.</p>
+</div>

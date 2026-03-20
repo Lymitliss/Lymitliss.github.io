@@ -51,7 +51,7 @@ body {
 
 .hero h1 {
   margin: 0;
-  font-size: 1.0rem;
+  font-size: 1.8rem;
   color: #58a6ff;
 }
 
@@ -135,4 +135,3 @@ tr:nth-child(even) {
 .s55 { background: #9e6a03; color: #fff; }  /* fair */
 .s41 { background: #da3633; color: #fff; }  /* weak */
 
-}

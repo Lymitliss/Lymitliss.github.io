@@ -1,0 +1,8 @@
+---
+layout: default
+title: Contact
+---
+
+## Contact
+
+Add your contact info here.

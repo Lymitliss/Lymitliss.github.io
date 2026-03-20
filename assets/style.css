@@ -80,3 +80,23 @@ footer {
   color: #8b949e;
   text-align: center;
 }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #1f2933;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background: #111827;
+  color: #58a6ff;
+}
+
+tr:nth-child(even) {
+  background: #0f172a;
+}

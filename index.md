@@ -3,13 +3,27 @@ layout: default
 title: WO0F Amateur, GMRS and Mesh Radio
 ---
 
-## Welcome
+## Station Overview
 
-This site covers:
+Welcome to the WO0F radio site.
 
-- Amateur Radio
-- GMRS Radio
-- Mesh Networks
-- Radio Experiments
+This station focuses on:
 
-Stay tuned for updates.
+- 📡 Amateur Radio operations
+- 📶 GMRS communication
+- 🌐 Mesh networking (AREDN / BATMAN / etc.)
+- 🔧 Radio experimentation and builds
+
+---
+
+## Current Projects
+
+- Mesh node setup
+- Portable GMRS station
+- Antenna testing and tuning
+
+---
+
+## Status
+
+Station active and expanding.

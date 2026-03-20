@@ -134,18 +134,5 @@ tr:nth-child(even) {
 .s57 { background: #2ea043; color: #fff; }  /* good */
 .s55 { background: #9e6a03; color: #fff; }  /* fair */
 .s41 { background: #da3633; color: #fff; }  /* weak */
-.neon-title {
-  font-family: "Trebuchet MS", "Arial Rounded MT Bold", Arial, sans-serif;
-  font-size: 3rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  margin: 0;
-  color: #8fd3ff;
-  text-transform: uppercase;
-  text-shadow:
-    0 0 4px #8fd3ff,
-    0 0 8px #8fd3ff,
-    0 0 16px #4db8ff,
-    0 0 28px #4db8ff,
-    0 0 40px #1f8fff;
+
 }

@@ -10,8 +10,8 @@ Welcome to the WOØF radio site.
 This station focuses on:
 
 - 📡 Amateur Radio Operations
-- 📶 GMRS communication
 - 🌐 Mesh Networking (Meshcore / Meshtastic / AREDN / etc.)
+- 📶 GMRS communication
 - 🔧 General Radio Experimentation and Builds
 
 ---

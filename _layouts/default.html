@@ -13,23 +13,29 @@
 
   <!-- NAVBAR -->
   <nav class="navbar">
-    <a href="{{ '/' | relative_url }}">Home</a>
-    <a href="{{ '/about' | relative_url }}">About</a>
-    <a href="{{ '/projects' | relative_url }}">Projects</a>
-    <a href="{{ '/contact' | relative_url }}">Contact</a>
+    <div class="logo">WO0F</div>
+    <div class="nav-links">
+      <a href="{{ '/' | relative_url }}">Home</a>
+      <a href="{{ '/about' | relative_url }}">About</a>
+      <a href="{{ '/projects' | relative_url }}">Projects</a>
+      <a href="{{ '/contact' | relative_url }}">Contact</a>
+    </div>
   </nav>
 
-  <header>
+  <!-- HEADER -->
+  <header class="hero">
     <h1>{{ site.title }}</h1>
-    <p class="tagline">{{ site.description }}</p>
+    <p>{{ site.description }}</p>
   </header>
 
+  <!-- CONTENT -->
   <main>
     {{ content }}
   </main>
 
+  <!-- FOOTER -->
   <footer>
-    <p>© {{ site.time | date: "%Y" }} WO0F</p>
+    <p>© {{ site.time | date: "%Y" }} WO0F | Amateur Radio Station</p>
   </footer>
 
 </div>

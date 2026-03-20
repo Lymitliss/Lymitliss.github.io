@@ -10,6 +10,15 @@
 <body>
 
 <div class="container">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <a href="{{ '/' | relative_url }}">Home</a>
+    <a href="{{ '/about' | relative_url }}">About</a>
+    <a href="{{ '/projects' | relative_url }}">Projects</a>
+    <a href="{{ '/contact' | relative_url }}">Contact</a>
+  </nav>
+
   <header>
     <h1>{{ site.title }}</h1>
     <p class="tagline">{{ site.description }}</p>
@@ -22,6 +31,7 @@
   <footer>
     <p>© {{ site.time | date: "%Y" }} WO0F</p>
   </footer>
+
 </div>
 
 </body>

@@ -5,4 +5,4 @@ title: About
 
 ## About
 
-This site is about radio, GMRS, and mesh networking.
+Born and raised in Seattle.  Always been interested in electrical and mechanical things and decided to jump into the world of radio a few years ago.  The obsession has only grown since.

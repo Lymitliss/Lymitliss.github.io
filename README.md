@@ -1,7 +1,1 @@
 # Lymitliss.github.io
-title: My Jekyll Site
-description: Minimal site with custom favicon
-baseurl: ""
-url: ""
-
-markdown: kramdown

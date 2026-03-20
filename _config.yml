@@ -1,6 +1,7 @@
-title: WO0F Amateur Radio
-description: Minimal site with custom favicon
+title: "WO0F Amateur, GMRS and Mesh Radio"
+description: "Anything radio related"
+
+url: "https://wo0f.com"
 baseurl: ""
-url: ""
 
 markdown: kramdown

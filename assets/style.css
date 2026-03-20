@@ -100,3 +100,37 @@ th {
 tr:nth-child(even) {
   background: #0f172a;
 }
+/* SIGNAL LOG STYLES */
+.log-entry {
+  border: 1px solid #1f2933;
+  border-left: 4px solid #58a6ff;
+  background: #0f172a;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+.log-header {
+  font-weight: bold;
+  color: #58a6ff;
+  margin-bottom: 5px;
+}
+
+.log-meta {
+  font-size: 0.9em;
+  color: #9da7b3;
+  margin-bottom: 8px;
+}
+
+.signal {
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+
+/* Signal strength colors */
+.s59 { background: #238636; color: #fff; }  /* strong */
+.s57 { background: #2ea043; color: #fff; }  /* good */
+.s55 { background: #9e6a03; color: #fff; }  /* fair */
+.s41 { background: #da3633; color: #fff; }  /* weak */

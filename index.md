@@ -1,26 +1,26 @@
 ---
 layout: default
-title: WO0F Amateur, GMRS and Mesh Radio
+title: WOØF Amateur, GMRS and Mesh Radio
 ---
 
 ## Station Overview
 
-Welcome to the WO0F radio site.
+Welcome to the WOØF radio site.
 
 This station focuses on:
 
-- 📡 Amateur Radio operations
+- 📡 Amateur Radio Operations
 - 📶 GMRS communication
-- 🌐 Mesh networking (AREDN / BATMAN / etc.)
-- 🔧 Radio experimentation and builds
+- 🌐 Mesh Networking (Meshcore / Meshtastic / AREDN / etc.)
+- 🔧 General Radio Experimentation and Builds
 
 ---
 
 ## Current Projects
 
-- Mesh node setup
-- Portable GMRS station
-- Antenna testing and tuning
+- New Meshcore Repeater Antenna
+- Rebuilding Hamclock Pi
+- Antenna Testing and Tuning
 
 ---
 

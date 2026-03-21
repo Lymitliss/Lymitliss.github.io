@@ -176,3 +176,23 @@ footer {
   margin-top: 10px;
   text-align: center;
 }
+/* PROPAGATION WIDGET */
+.propagation {
+  margin-bottom: 25px;
+}
+
+.propagation h2 {
+  margin-top: 0;
+}
+
+.propagation-widget {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.propagation-widget img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #1f2933;
+  border-radius: 6px;
+}

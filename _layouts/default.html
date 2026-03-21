@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "b49fe51d93d342e58a8819aa36a47517"}'></script>
   <meta charset="UTF-8">
   <title>{{ page.title | default: site.title }}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,7 +36,6 @@
     <div><strong>Status:</strong> 🟢 Active</div>
   </div>
 </header>
-    </header>
 
     <main>
       {{ content }}
@@ -45,6 +43,9 @@
 
     <footer>
       <p>© {{ site.time | date: "%Y" }} WOØF | Amateur Radio Station</p>
+      <div class="counter">
+  <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https://wo0f.com&count_bg=%231f2933&title_bg=%2358a6ff&icon=&icon_color=%23E7E7E7&title=visits&edge_flat=false" alt="Visitor counter">
+</div>
     </footer>
   </div>
 </body>

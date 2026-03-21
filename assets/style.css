@@ -172,3 +172,7 @@ footer {
 .station-info strong {
   color: #c9d1d9;
 }
+.counter {
+  margin-top: 10px;
+  text-align: center;
+}

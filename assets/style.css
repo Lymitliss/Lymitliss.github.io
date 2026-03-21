@@ -157,3 +157,18 @@ footer {
   content: " ↗";
   font-size: 0.75em;
 }
+/* STATION INFO BLOCK */
+.station-info {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid #1f2933;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #9da7b3;
+}
+
+.station-info strong {
+  color: #c9d1d9;
+}

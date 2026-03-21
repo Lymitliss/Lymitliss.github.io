@@ -6,27 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="icon" type="image/png" href="{{ '/assets/favicon-v2.png' | relative_url }}">
-  <link rel="apple-touch-icon" href="{{ '/assets/favicon.png' | relative_url }}">
+  <link rel="apple-touch-icon" href="{{ '/assets/favicon-v2.png' | relative_url }}">
 
   <link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
 </head>
 <body>
   <div class="container">
     <nav class="navbar">
-      <div class="logo">WOØF</div>
+      <a href="{{ '/' | relative_url }}" class="logo">WOØF</a>
       <div class="nav-links">
         <a href="{{ '/' | relative_url }}">Home</a>
         <a href="{{ '/signal-reports' | relative_url }}">Signal Reports</a>
         <a href="{{ '/about' | relative_url }}">About</a>
         <a href="{{ '/projects' | relative_url }}">Projects</a>
         <a href="{{ '/contact' | relative_url }}">Contact</a>
-        <a href="https://pugetmesh.org" target="_blank" rel="noopener">External</a>
+        <a href="https://pugetmesh.org" target="_blank" rel="noopener">PugetMesh</a>
       </div>
     </nav>
 
     <header class="hero">
-      <div class="logo">Amateur - GMRS - Mesh Radio</div>
-      <p>{{ site.description }}</p>
+      <h1 class="hero-title">WOØF</h1>
+      <p class="hero-subtitle">Amateur - GMRS - Mesh Radio</p>
+      <p class="hero-description">{{ site.description }}</p>
     </header>
 
     <main>

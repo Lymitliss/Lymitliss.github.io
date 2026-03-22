@@ -16,9 +16,8 @@ body {
 /* NAVBAR */
 .navbar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+  flex-direction: column; /* STACK logo + nav */
+  align-items: flex-start; /* LEFT ALIGN BOTH */
   border-bottom: 1px solid #1f2933;
   padding-bottom: 10px;
   margin-bottom: 20px;
@@ -30,7 +29,7 @@ body {
   color: #58a6ff;
   letter-spacing: 2px;
   text-decoration: none;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  margin-bottom: 8px; /* space before nav links */
 }
 
 /* SOFT SIGNAL PULSE */
@@ -69,10 +68,10 @@ body {
 .nav-links {
   display: flex;
   flex-wrap: wrap;
+  gap: 18px; /* EVEN SPACING (fixes alignment issue) */
 }
 
 .nav-links a {
-  margin-left: 20px;
   text-decoration: none;
   color: #c9d1d9;
   font-weight: 500;
@@ -268,46 +267,6 @@ h3 {
   margin-top: 20px;
 }
 
-.station-card h3 {
-  margin-bottom: 10px;
-}
-
-.station-list {
-  margin: 0;
-  padding-left: 18px;
-}
-
-.station-list li {
-  margin-bottom: 10px;
-}
-
-.station-label {
-  color: #c9d1d9;
-  font-weight: 600;
-}
-
-/* TABLES */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-}
-
-th, td {
-  border: 1px solid #1f2933;
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background: #111827;
-  color: #58a6ff;
-}
-
-tr:nth-child(even) {
-  background: #0f172a;
-}
-
 /* FOOTER */
 footer {
   margin-top: 40px;
@@ -320,32 +279,4 @@ footer {
 
 .counter {
   margin-top: 10px;
-  text-align: center;
-  opacity: 0.9;
-}
-
-/* MOBILE */
-@media (max-width: 700px) {
-  .logo {
-    font-size: 1.7rem;
-  }
-
-  .hero-title {
-    font-size: 1.8rem;
-  }
-
-  .nav-links a {
-    margin-left: 0;
-    margin-right: 14px;
-    margin-top: 8px;
-  }
-
-  .band-list div {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  .band-list span {
-    text-align: left;
-  }
 }

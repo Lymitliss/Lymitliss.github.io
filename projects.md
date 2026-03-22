@@ -1,8 +1,12 @@
 ---
 layout: default
 title: Projects
+permalink: /projects/
 ---
 
-## Projects
+## Current Projects
 
-Coming soon: radio builds and experiments.
+New Meshcore Repeater Antenna  
+Rebuilding Hamclock Pi  
+Antenna Testing and Tuning  
+Currently Learning CW

@@ -13,7 +13,7 @@ body {
   padding: 20px;
 }
 
-/* NAVBAR */
+/* NAVBAR (RESTORED INLINE LINKS) */
 .navbar {
   display: flex;
   flex-direction: column;
@@ -63,14 +63,6 @@ body {
     0 0 22px rgba(88, 166, 255, 0.25);
 }
 
-/* NAV ROW SPLIT */
-.nav-row {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
 /* NAV LINKS */
 .nav-links {
   display: flex;
@@ -87,15 +79,6 @@ body {
 
 .nav-links a:hover {
   color: #58a6ff;
-}
-
-/* LEFT / RIGHT GROUPS */
-.nav-left {
-  justify-content: flex-start;
-}
-
-.nav-right {
-  justify-content: flex-end;
 }
 
 .nav-links a[target="_blank"]::after {

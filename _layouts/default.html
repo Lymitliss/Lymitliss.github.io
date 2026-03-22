@@ -54,10 +54,10 @@
 
       <div class="propagation-widget">
         <img src="https://www.hamqsl.com/solar101vhf.php?t={{ site.time | date: '%s' }}" alt="HF Propagation Conditions">
+        <p class="prop-last-updated">
+          Last updated: {{ site.time | date: "%-I:%M %p" }}
+        </p>
       </div>
-      <p class="prop-last-updated">
-        Last updated: {{ site.time | date: "%B %-d, %Y at %-I:%M %p %Z" }}
-      </p>
 
       <div class="prop-grid">
         <div class="prop-card">

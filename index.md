@@ -21,6 +21,7 @@ This station focuses on:
 - New Meshcore Repeater Antenna
 - Rebuilding Hamclock Pi
 - Antenna Testing and Tuning
+- Currently Learning CW
 
 ---
 

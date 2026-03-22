@@ -16,8 +16,8 @@ body {
 /* NAVBAR */
 .navbar {
   display: flex;
-  flex-direction: column; /* STACK logo + nav */
-  align-items: flex-start; /* LEFT ALIGN BOTH */
+  flex-direction: column;
+  align-items: flex-start;
   border-bottom: 1px solid #1f2933;
   padding-bottom: 10px;
   margin-bottom: 20px;
@@ -29,21 +29,19 @@ body {
   color: #58a6ff;
   letter-spacing: 2px;
   text-decoration: none;
-  margin-bottom: 8px; /* space before nav links */
+  margin-bottom: 8px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
 }
 
-/* SOFT SIGNAL PULSE */
+/* SIGNAL PULSE */
 .signal-pulse {
   animation: signalPulse 2.4s ease-in-out infinite;
 }
 
 @keyframes signalPulse {
-  0%,
-  100% {
+  0%, 100% {
     color: #58a6ff;
-    text-shadow:
-      0 0 0 rgba(88, 166, 255, 0),
-      0 0 0 rgba(88, 166, 255, 0);
+    text-shadow: none;
     opacity: 0.92;
   }
   50% {
@@ -56,7 +54,7 @@ body {
   }
 }
 
-/* BRIGHT Ø CHARACTER */
+/* BRIGHT Ø */
 .callsign-zero {
   color: #cfe8ff;
   text-shadow:
@@ -65,10 +63,19 @@ body {
     0 0 22px rgba(88, 166, 255, 0.25);
 }
 
+/* NAV ROW SPLIT */
+.nav-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* NAV LINKS */
 .nav-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 18px; /* EVEN SPACING (fixes alignment issue) */
+  gap: 18px;
 }
 
 .nav-links a {
@@ -80,6 +87,15 @@ body {
 
 .nav-links a:hover {
   color: #58a6ff;
+}
+
+/* LEFT / RIGHT GROUPS */
+.nav-left {
+  justify-content: flex-start;
+}
+
+.nav-right {
+  justify-content: flex-end;
 }
 
 .nav-links a[target="_blank"]::after {
@@ -110,19 +126,26 @@ body {
   color: #c9d1d9;
 }
 
+/* STATION INFO (EQUAL SPACING) */
 .station-info {
   margin-top: 12px;
   padding-top: 10px;
   border-top: 1px solid #1f2933;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 6px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
   font-size: 0.85rem;
   color: #9da7b3;
 }
 
+.station-info div {
+  text-align: center;
+}
+
 .station-info strong {
   color: #c9d1d9;
+  display: block;
+  margin-bottom: 4px;
 }
 
 /* CONTENT */
@@ -191,6 +214,7 @@ h3 {
   margin-bottom: 8px;
 }
 
+/* BAND LIST */
 .band-list {
   display: grid;
   gap: 8px;
@@ -212,6 +236,7 @@ h3 {
   font-size: 0.88rem;
 }
 
+/* BAND STATUS */
 .band-status-list {
   margin-top: 12px;
   display: grid;
@@ -242,20 +267,9 @@ h3 {
   text-transform: uppercase;
 }
 
-.band-good {
-  background: #238636;
-  color: #fff;
-}
-
-.band-fair {
-  background: #9e6a03;
-  color: #fff;
-}
-
-.band-poor {
-  background: #da3633;
-  color: #fff;
-}
+.band-good { background: #238636; color: #fff; }
+.band-fair { background: #9e6a03; color: #fff; }
+.band-poor { background: #da3633; color: #fff; }
 
 /* STATION PAGE */
 .station-card {
@@ -279,4 +293,37 @@ footer {
 
 .counter {
   margin-top: 10px;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+  .logo {
+    font-size: 1.7rem;
+  }
+
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .nav-links {
+    flex-wrap: wrap;
+  }
+
+  .station-info {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+
+  .station-info div {
+    text-align: left;
+  }
+
+  .band-list div {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .band-list span {
+    text-align: left;
+  }
 }

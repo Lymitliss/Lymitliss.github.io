@@ -16,14 +16,22 @@
       <a href="{{ '/' | relative_url }}" class="logo signal-pulse">
         Whiskey Oscar Zer<span class="callsign-zero">Ø</span> Foxtrot
       </a>
-      <div class="nav-links">
-        <a href="{{ '/' | relative_url }}">Home</a>
-        <a href="{{ '/station-information' | relative_url }}">Station Information</a>
-        <a href="https://www.qrz.com/db/WO0F" target="_blank" rel="noopener">My QRZ</a>
-        <a href="https://pugetmesh.org" target="_blank" rel="noopener">PugetMesh</a>
-        <a href="{{ '/projects' | relative_url }}">Projects</a>
-        <a href="{{ '/about' | relative_url }}">About</a>
-        <a href="{{ '/contact' | relative_url }}">Contact</a>
+
+      <div class="nav-row">
+        <!-- LEFT SIDE (INTERNAL) -->
+        <div class="nav-links nav-left">
+          <a href="{{ '/' | relative_url }}">Home</a>
+          <a href="{{ '/station-information' | relative_url }}">Station Information</a>
+          <a href="{{ '/projects' | relative_url }}">Projects</a>
+          <a href="{{ '/about' | relative_url }}">About</a>
+          <a href="{{ '/contact' | relative_url }}">Contact</a>
+        </div>
+
+        <!-- RIGHT SIDE (EXTERNAL) -->
+        <div class="nav-links nav-right">
+          <a href="https://www.qrz.com/db/WO0F" target="_blank" rel="noopener">My QRZ</a>
+          <a href="https://pugetmesh.org" target="_blank" rel="noopener">PugetMesh</a>
+        </div>
       </div>
     </nav>
 
@@ -33,12 +41,17 @@
 
       <div class="station-info">
         <div>
-          <strong>Location:</strong> Shoreline, WA •
-          <strong>Grid:</strong> CN87ur •
-          <strong>Coverage:</strong> Seattle Metro / Puget Sound
+          <strong>Location</strong>
+          Shoreline, WA • CN87ur • Seattle Metro / Puget Sound
         </div>
-        <div><strong>Bands:</strong> VHF / UHF / HF</div>
-        <div><strong>Modes:</strong> FM, AM, SSB, Digital, Mesh</div>
+        <div>
+          <strong>Bands</strong>
+          VHF / UHF / HF
+        </div>
+        <div>
+          <strong>Modes</strong>
+          FM, AM, SSB, Digital, Mesh
+        </div>
       </div>
     </header>
 
@@ -53,9 +66,6 @@
       <div class="prop-grid">
         <div class="prop-card">
           <h3>Best Bands Right Now</h3>
-          <p class="prop-note">
-            General guidance based on current solar conditions:
-          </p>
 
           <div class="band-status-list">
             <div class="band-status-row">
@@ -79,32 +89,24 @@
               <span class="band-badge band-poor">Poor</span>
             </div>
           </div>
-
-          <p class="prop-note">
-            These are operator-friendly indicators. Check the live solar panel above for the latest numbers.
-          </p>
         </div>
 
         <div class="prop-card">
           <h3>Band Guide</h3>
           <div class="band-list">
-            <div><strong>10m</strong> <span>High solar activity / daytime DX</span></div>
-            <div><strong>15m</strong> <span>Strong daytime performer</span></div>
-            <div><strong>20m</strong> <span>Most dependable general-purpose band</span></div>
-            <div><strong>40m</strong> <span>Regional + nighttime performance</span></div>
-            <div><strong>80m</strong> <span>Nighttime local/regional work</span></div>
+            <div><strong>10m</strong> <span>Daytime DX</span></div>
+            <div><strong>15m</strong> <span>Strong daytime</span></div>
+            <div><strong>20m</strong> <span>All-around</span></div>
+            <div><strong>40m</strong> <span>Night/regional</span></div>
+            <div><strong>80m</strong> <span>Night/local</span></div>
           </div>
         </div>
 
         <div class="prop-card">
-          <h3>What MUF Means</h3>
+          <h3>MUF</h3>
           <p class="prop-note">
-            <strong>MUF</strong> stands for <em>Maximum Usable Frequency</em>.
-            It is the highest frequency likely to reflect off the ionosphere over a given path.
-          </p>
-          <p class="prop-note">
-            Higher MUF usually means upper HF bands like 10m and 15m may open up.
-            Lower MUF usually means 20m, 40m, and 80m will be more dependable.
+            Higher MUF → higher bands open (10m/15m)<br>
+            Lower MUF → lower bands dominate (40m/80m)
           </p>
         </div>
       </div>

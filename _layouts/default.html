@@ -50,18 +50,22 @@
       </div>
     </header>
 
+    {% if page.url == "/" %}
+    <!-- Banner ABOVE content -->
+    <div class="home-banner">
+      Into Meshcore or Meshtastic? Visit me at the 
+      <a href="https://pugetmesh.org/" target="_blank" rel="noopener">
+        PugetMesh Discord
+      </a>
+    </div>
+    {% endif %}
+
     <main>
       {{ content }}
     </main>
 
     {% if page.url == "/" %}
-    <div class="home-banner">
-      Into Meshcore or Meshtastic? Visit me at the
-      <a href="https://pugetmesh.org/" target="_blank" rel="noopener">
-        PugetMesh Discord
-      </a>
-    </div>
-
+    <!-- Propagation BELOW content -->
     <section class="propagation">
       <h2>HF Propagation</h2>
 

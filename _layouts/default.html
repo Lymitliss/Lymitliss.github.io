@@ -28,6 +28,16 @@
       </div>
     </nav>
 
+    {% if page.url == "/" %}
+    <!-- Banner ABOVE hero -->
+    <div class="home-banner">
+      Into Meshcore or Meshtastic? Visit me at the 
+      <a href="https://pugetmesh.org/" target="_blank" rel="noopener">
+        PugetMesh Discord
+      </a>
+    </div>
+    {% endif %}
+
     <header class="hero">
       <h1 class="hero-title">WOØF</h1>
       <p class="hero-subtitle">Amateur - GMRS - Mesh Radio</p>
@@ -49,16 +59,6 @@
         </div>
       </div>
     </header>
-
-    {% if page.url == "/" %}
-    <!-- Banner ABOVE content -->
-    <div class="home-banner">
-      Into Meshcore or Meshtastic? Visit me at the 
-      <a href="https://pugetmesh.org/" target="_blank" rel="noopener">
-        PugetMesh Discord
-      </a>
-    </div>
-    {% endif %}
 
     <main>
       {{ content }}

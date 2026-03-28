@@ -6,8 +6,16 @@ permalink: /live-receiver/
 
 ## Live Receiver
 
-The WOØF OpenWebRX receiver is available here:
+<div class="receiver-card">
+  <p>
+    The WOØF OpenWebRX receiver is available here:
+  </p>
 
-[Open the Live Receiver](https://rx.wo0f.com)
+  <a class="receiver-button" href="https://rx.wo0f.com" target="_blank" rel="noopener">
+    Open the Live Receiver
+  </a>
 
-If the receiver is online, the link above will open the live waterfall and controls in a new browser tab or window.
+  <p>
+    If the receiver is online, the button above will open the live waterfall and controls in a new tab.
+  </p>
+</div>

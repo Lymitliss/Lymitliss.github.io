@@ -29,3 +29,11 @@ permalink: /station-information/
     <li><span class="station-label">Antenna:</span> Diamond D3000N Super Discone</li>
   </ul>
 </div>
+
+---
+
+## Station Photo
+
+<div class="station-image">
+  <img src="{{ '/assets/station.jpg' | relative_url }}" alt="WOØF Station Setup">
+</div>

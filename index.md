@@ -18,6 +18,7 @@ This station focuses on:
 
 ## Current Projects
 
+- Forever expanding LoRa meshes.
 - New Meshcore Repeater Antenna
 - Rebuilding Hamclock Pi
 - Antenna Testing and Tuning

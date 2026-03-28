@@ -29,9 +29,8 @@
     </nav>
 
     {% if page.url == "/" %}
-    <!-- Banner ABOVE hero -->
     <div class="home-banner">
-      Into Meshcore or Meshtastic? Visit me at the 
+      Into Meshcore or Meshtastic? Visit me at the
       <a href="https://pugetmesh.org/" target="_blank" rel="noopener">
         PugetMesh Discord
       </a>
@@ -65,30 +64,78 @@
     </main>
 
     {% if page.url == "/" %}
-    <!-- Propagation BELOW content -->
     <section class="propagation">
-      <h2>HF Propagation</h2>
+      <div class="propagation-header">
+        <h2>HF Propagation</h2>
+        <div class="live-badge">LIVE CONDITIONS</div>
+      </div>
+
+      <div class="prop-summary" id="prop-summary">
+        <div class="prop-summary-card">
+          <span class="prop-summary-label">Best Band Right Now</span>
+          <span class="prop-summary-value" id="best-band">Loading...</span>
+        </div>
+        <div class="prop-summary-card">
+          <span class="prop-summary-label">Overall HF Outlook</span>
+          <span class="prop-summary-value" id="hf-outlook">Loading...</span>
+        </div>
+        <div class="prop-summary-card">
+          <span class="prop-summary-label">Solar Snapshot</span>
+          <span class="prop-summary-value" id="solar-snapshot">Loading...</span>
+        </div>
+      </div>
 
       <div class="propagation-widget">
         <img src="https://www.hamqsl.com/solar101vhf.php?t={{ site.time | date: '%s' }}" alt="HF Propagation Conditions">
-        <p class="prop-last-updated">
-          Last updated: {{ site.time | date: "%-I:%M %p" }}
+        <p class="prop-last-updated" id="prop-last-updated">
+          Loading current solar data...
         </p>
       </div>
 
-      <div class="prop-grid">
-        <div class="prop-card">
-          <h3>Band Guide</h3>
-          <div class="band-list">
-            <div><strong>10m</strong> <span>Daytime DX</span></div>
-            <div><strong>15m</strong> <span>Strong daytime</span></div>
-            <div><strong>20m</strong> <span>All-around</span></div>
-            <div><strong>40m</strong> <span>Night/regional</span></div>
-            <div><strong>80m</strong> <span>Night/local</span></div>
+      <div class="prop-grid smart-bands" id="smart-bands">
+        <div class="prop-card band-card" data-band="10m">
+          <div class="band-card-header">
+            <h3>10m</h3>
+            <span class="band-badge" id="badge-10m">Loading</span>
           </div>
+          <p class="prop-note" id="note-10m">Evaluating current conditions...</p>
+        </div>
+
+        <div class="prop-card band-card" data-band="15m">
+          <div class="band-card-header">
+            <h3>15m</h3>
+            <span class="band-badge" id="badge-15m">Loading</span>
+          </div>
+          <p class="prop-note" id="note-15m">Evaluating current conditions...</p>
+        </div>
+
+        <div class="prop-card band-card" data-band="20m">
+          <div class="band-card-header">
+            <h3>20m</h3>
+            <span class="band-badge" id="badge-20m">Loading</span>
+          </div>
+          <p class="prop-note" id="note-20m">Evaluating current conditions...</p>
+        </div>
+
+        <div class="prop-card band-card" data-band="40m">
+          <div class="band-card-header">
+            <h3>40m</h3>
+            <span class="band-badge" id="badge-40m">Loading</span>
+          </div>
+          <p class="prop-note" id="note-40m">Evaluating current conditions...</p>
+        </div>
+
+        <div class="prop-card band-card" data-band="80m">
+          <div class="band-card-header">
+            <h3>80m</h3>
+            <span class="band-badge" id="badge-80m">Loading</span>
+          </div>
+          <p class="prop-note" id="note-80m">Evaluating current conditions...</p>
         </div>
       </div>
     </section>
+
+    <script src="{{ '/assets/propagation.js' | relative_url }}"></script>
     {% endif %}
 
     <footer>

@@ -163,6 +163,10 @@ h3 {
   line-height: 1.4;
 }
 
+.home-banner-line + .home-banner-line {
+  margin-top: 8px;
+}
+
 .home-banner a,
 .home-banner a:visited {
   color: #ffd700;
@@ -171,6 +175,16 @@ h3 {
 }
 
 .home-banner a:hover {
+  text-decoration: underline;
+}
+
+.home-banner-link-blue,
+.home-banner-link-blue:visited {
+  color: #58a6ff !important;
+}
+
+.home-banner-link-blue:hover {
+  color: #79b8ff !important;
   text-decoration: underline;
 }
 

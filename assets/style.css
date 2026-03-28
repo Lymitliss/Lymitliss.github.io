@@ -264,6 +264,31 @@ h3 {
   margin-top: 20px;
 }
 
+/* LIVE RECEIVER PAGE */
+.receiver-card {
+  background: #0f172a;
+  border: 1px solid #1f2933;
+  border-left: 4px solid #58a6ff;
+  border-radius: 6px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.receiver-button {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 12px 18px;
+  background: #58a6ff;
+  color: #0b0f14;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 6px;
+}
+
+.receiver-button:hover {
+  background: #79c0ff;
+}
+
 /* FOOTER */
 footer {
   margin-top: 40px;

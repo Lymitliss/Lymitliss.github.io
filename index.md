@@ -3,6 +3,10 @@ layout: default
 title: WOØF Amateur, GMRS and Mesh Radio
 ---
 
+<div class="home-banner">
+  Into Meshcore or Meshtastic? Visit me at the <a href="https://pugetmesh.org/" target="_blank" rel="noopener">PugetMesh Discord</a>
+</div>
+
 ## Station Overview
 
 Welcome to the WOØF radio site.

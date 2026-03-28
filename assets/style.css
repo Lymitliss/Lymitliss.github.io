@@ -92,7 +92,7 @@ body {
   padding: 20px;
   border: 1px solid #1f2933;
   border-radius: 8px;
-  margin-bottom: 25px;
+  margin-bottom: 20px; /* tightened slightly */
 }
 
 .hero-title {
@@ -149,18 +149,18 @@ h3 {
   margin-top: 0;
 }
 
-/* HOME BANNER */
+/* HOME BANNER (TIGHTER) */
 .home-banner {
   background: #0f172a;
   border: 1px solid #1f2933;
   border-left: 4px solid #58a6ff;
   border-radius: 6px;
-  padding: 18px 20px;
-  margin-bottom: 25px;
+  padding: 14px 18px; /* slightly tighter */
+  margin: 10px 0 20px 0; /* tighter top spacing */
   color: #c9d1d9;
   font-weight: 600;
-  font-size: 1.4rem;
-  line-height: 1.5;
+  font-size: 1.3rem;
+  line-height: 1.4;
 }
 
 .home-banner a,
@@ -176,12 +176,27 @@ h3 {
 
 /* PROPAGATION */
 .propagation {
-  margin-bottom: 25px;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #1f2933; /* subtle divider */
 }
 
+/* LIVE EFFECT */
 .propagation-widget {
-  margin-top: 10px;
+  margin-top: 12px;
   text-align: center;
+  animation: livePulse 4s ease-in-out infinite;
+}
+
+@keyframes livePulse {
+  0%, 100% {
+    opacity: 0.95;
+    filter: brightness(1);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(1.08);
+  }
 }
 
 .propagation-widget img {
@@ -190,14 +205,16 @@ h3 {
   border: 1px solid #1f2933;
   border-radius: 6px;
   background: #111827;
+  box-shadow: 0 0 10px rgba(88, 166, 255, 0.08);
 }
 
-/* LAST UPDATED TEXT */
+/* LAST UPDATED TEXT (MORE "LIVE") */
 .prop-last-updated {
   font-size: 0.75rem;
   color: #8b949e;
   margin-top: 6px;
   text-align: center;
+  letter-spacing: 0.5px;
 }
 
 /* PROP GRID */

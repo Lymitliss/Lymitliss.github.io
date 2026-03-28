@@ -50,11 +50,13 @@
       </div>
     </header>
 
-    {% if page.url == "/" %}
+    <main>
+      {{ content }}
+    </main>
 
-    <!-- MOVED BANNER -->
+    {% if page.url == "/" %}
     <div class="home-banner">
-      Into Meshcore or Meshtastic? Visit me at the 
+      Into Meshcore or Meshtastic? Visit me at the
       <a href="https://pugetmesh.org/" target="_blank" rel="noopener">
         PugetMesh Discord
       </a>
@@ -84,10 +86,6 @@
       </div>
     </section>
     {% endif %}
-
-    <main>
-      {{ content }}
-    </main>
 
     <footer>
       <p>© {{ site.time | date: "%Y" }} WOØF | Amateur Radio Station</p>

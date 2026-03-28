@@ -149,6 +149,28 @@ h3 {
   margin-top: 0;
 }
 
+/* HOME BANNER */
+.home-banner {
+  background: #0f172a;
+  border: 1px solid #1f2933;
+  border-left: 4px solid #58a6ff;
+  border-radius: 6px;
+  padding: 14px 16px;
+  margin-bottom: 25px;
+  color: #c9d1d9;
+  font-weight: 500;
+}
+
+.home-banner a {
+  color: #58a6ff;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.home-banner a:hover {
+  text-decoration: underline;
+}
+
 /* PROPAGATION */
 .propagation {
   margin-bottom: 25px;

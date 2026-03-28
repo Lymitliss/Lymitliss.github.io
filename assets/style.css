@@ -155,15 +155,18 @@ h3 {
   border: 1px solid #1f2933;
   border-left: 4px solid #58a6ff;
   border-radius: 6px;
-  padding: 14px 16px;
+  padding: 18px 20px;
   margin-bottom: 25px;
   color: #c9d1d9;
-  font-weight: 500;
+  font-weight: 600;
+  font-size: 1.4rem;
+  line-height: 1.5;
 }
 
-.home-banner a {
-  color: #58a6ff;
-  font-weight: 700;
+.home-banner a,
+.home-banner a:visited {
+  color: #ffd700;
+  font-weight: 800;
   text-decoration: none;
 }
 
@@ -240,41 +243,6 @@ h3 {
   text-align: right;
   font-size: 0.88rem;
 }
-
-/* BAND STATUS */
-.band-status-list {
-  margin-top: 12px;
-  display: grid;
-  gap: 8px;
-}
-
-.band-status-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 10px;
-  background: #111827;
-  border: 1px solid #1f2933;
-  border-radius: 4px;
-}
-
-.band-name {
-  font-weight: 600;
-  color: #c9d1d9;
-}
-
-.band-badge {
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.band-good { background: #238636; color: #fff; }
-.band-fair { background: #9e6a03; color: #fff; }
-.band-poor { background: #da3633; color: #fff; }
 
 /* STATION PAGE */
 .station-card {

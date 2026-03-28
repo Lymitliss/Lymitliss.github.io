@@ -278,17 +278,6 @@ h3 {
   font-weight: 600;
 }
 
-.station-image {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.station-image img {
-  max-width: 100%;
-  border-radius: 8px;
-  border: 1px solid #1f2933;
-}
-
 /* FOOTER */
 footer {
   margin-top: 40px;

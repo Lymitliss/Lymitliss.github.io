@@ -12,7 +12,7 @@ permalink: /sdr/
     My OpenWebRX SDR stream is available here:
   </p>
   <p>
-    <a href="https://rx.wo0f.com/" target="_blank" rel="noopener" class="home-banner-link">
+    <a href="https://rx.wo0f.com/" target="_blank" rel="noopener" class="accent-link">
       https://rx.wo0f.com/
     </a>
   </p>

@@ -12,7 +12,9 @@ permalink: /sdr/
     My OpenWebRX SDR stream is available here:
   </p>
   <p>
-    <a href="https://rx.wo0f.com/" target="_blank" rel="noopener">https://rx.wo0f.com/</a>
+    <a href="https://rx.wo0f.com/" target="_blank" rel="noopener" class="home-banner-link">
+      https://rx.wo0f.com/
+    </a>
   </p>
   <p>
     This receiver is based in Shoreline, Washington and is intended for general listening, experimentation, and regional RF monitoring.

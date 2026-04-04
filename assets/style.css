@@ -149,6 +149,18 @@ h3 {
   margin-top: 0;
 }
 
+/* Accent link (used across site) */
+.accent-link {
+  color: #ffd447;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.accent-link:hover {
+  color: #ffea85;
+  text-decoration: underline;
+}
+
 /* HOME BANNER */
 .home-banner {
   background: #0f172a;

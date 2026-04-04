@@ -4,11 +4,11 @@
   const SCALES_URL = "https://services.swpc.noaa.gov/products/noaa-scales.json";
 
   const BAND_CONFIG = [
-    { name: "10m", type: "high" },
-    { name: "15m", type: "highMid" },
-    { name: "20m", type: "mid" },
-    { name: "40m", type: "low" },
-    { name: "80m", type: "lowNight" }
+    { name: "10m" },
+    { name: "15m" },
+    { name: "20m" },
+    { name: "40m" },
+    { name: "80m" }
   ];
 
   function byId(id) {
@@ -20,16 +20,27 @@
     return Number.isFinite(num) ? num : fallback;
   }
 
-  function parseArrayJsonTable(raw) {
-    if (!Array.isArray(raw) || raw.length < 2) return [];
-    const headers = raw[0];
-    return raw.slice(1).map((row) => {
-      const item = {};
-      headers.forEach((key, idx) => {
-        item[key] = row[idx];
+  function normalizeRows(raw) {
+    if (!Array.isArray(raw)) return [];
+
+    if (raw.length === 0) return [];
+
+    if (typeof raw[0] === "object" && raw[0] !== null && !Array.isArray(raw[0])) {
+      return raw;
+    }
+
+    if (Array.isArray(raw[0])) {
+      const headers = raw[0];
+      return raw.slice(1).map((row) => {
+        const item = {};
+        headers.forEach((key, idx) => {
+          item[key] = row[idx];
+        });
+        return item;
       });
-      return item;
-    });
+    }
+
+    return [];
   }
 
   function getLatest(arr, valueKey) {
@@ -40,12 +51,14 @@
   function getNoaaNow(scales) {
     if (!scales || typeof scales !== "object") return null;
     if (scales["0"]) return scales["0"];
+
     const keys = Object.keys(scales)
       .map((k) => Number(k))
       .filter((n) => Number.isFinite(n))
       .sort((a, b) => a - b);
-    const latestCurrent = keys.find((k) => k === 0);
-    return latestCurrent != null ? scales[String(latestCurrent)] : scales[String(keys[keys.length - 1])];
+
+    if (!keys.length) return null;
+    return scales[String(keys[0])];
   }
 
   function isDaytime() {
@@ -60,11 +73,7 @@
   }
 
   function describeSolarState(flux, kp, rScale) {
-    const parts = [];
-    parts.push(`SFI ${Math.round(flux)}`);
-    parts.push(`Kp ${kp.toFixed(1)}`);
-    parts.push(`R${rScale}`);
-    return parts.join(" • ");
+    return `SFI ${Math.round(flux)} • Kp ${kp.toFixed(1)} • R${rScale}`;
   }
 
   function buildOutlook(flux, kp, rScale) {
@@ -144,9 +153,6 @@
         score -= kp * 2.8;
         score -= rScale * 2;
         break;
-
-      default:
-        break;
     }
 
     return Math.max(0, Math.min(100, Math.round(score)));
@@ -158,7 +164,7 @@
     if (band === "10m") {
       if (rating === "Good") return `Strong ${timeHint} DX potential. High solar flux is helping the upper HF bands.`;
       if (rating === "Fair") return `Watch for openings, especially in daylight. Conditions are present but not wide open.`;
-      return `Upper-band conditions are weak right now. 10m likely spotty unless a brief opening develops.`;
+      return `Upper-band conditions are weak right now. 10m is likely spotty unless a brief opening develops.`;
     }
 
     if (band === "15m") {
@@ -202,6 +208,7 @@
     const card = document.querySelector(`.band-card[data-band="${band}"]`);
     const badge = byId(`badge-${band}`);
     const noteEl = byId(`note-${band}`);
+
     if (!card || !badge || !noteEl) return;
 
     card.classList.remove("band-good", "band-fair", "band-poor", "band-best");
@@ -249,15 +256,19 @@
         fetchJson(SCALES_URL)
       ]);
 
-      const kpRows = parseArrayJsonTable(kpRaw);
-      const fluxRows = parseArrayJsonTable(fluxRaw);
+      const kpRows = normalizeRows(kpRaw);
+      const fluxRows = normalizeRows(fluxRaw);
 
       const latestKpRow = getLatest(kpRows, "Kp");
       const latestFluxRow = getLatest(fluxRows, "flux");
       const noaaNow = getNoaaNow(scalesRaw);
 
-      const kp = safeNumber(latestKpRow?.Kp, 3);
-      const flux = safeNumber(latestFluxRow?.flux, 100);
+      if (!latestKpRow || !latestFluxRow || !noaaNow) {
+        throw new Error("NOAA data structure was not usable.");
+      }
+
+      const kp = safeNumber(latestKpRow.Kp, 3);
+      const flux = safeNumber(latestFluxRow.flux, 100);
       const rScale = safeNumber(noaaNow?.R?.Scale, 0);
       const rText = noaaNow?.R?.Text ? String(noaaNow.R.Text) : "none";
       const daytime = isDaytime();
@@ -273,15 +284,8 @@
       byId("best-band").textContent = bestBand;
       byId("hf-outlook").textContent = outlook;
       byId("solar-snapshot").textContent = describeSolarState(flux, kp, rScale);
-
-      const updatedText = [
-        `NOAA data loaded`,
-        `Flux ${Math.round(flux)}`,
-        `Kp ${kp.toFixed(1)}`,
-        `Radio blackout scale: R${rScale} (${rText})`
-      ].join(" • ");
-
-      byId("prop-last-updated").textContent = updatedText;
+      byId("prop-last-updated").textContent =
+        `NOAA data loaded • Flux ${Math.round(flux)} • Kp ${kp.toFixed(1)} • Radio blackout scale: R${rScale} (${rText})`;
 
       BAND_CONFIG.forEach(({ name }) => {
         const found = bandScores.find((item) => item.band === name);

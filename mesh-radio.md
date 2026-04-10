@@ -23,6 +23,53 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
+  <h3>Quick Comparison</h3>
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+      <thead>
+        <tr>
+          <th style="text-align: left; padding: 10px; border-bottom: 1px solid #1f2933; color: #58a6ff;">Category</th>
+          <th style="text-align: left; padding: 10px; border-bottom: 1px solid #1f2933; color: #58a6ff;">Meshtastic</th>
+          <th style="text-align: left; padding: 10px; border-bottom: 1px solid #1f2933; color: #58a6ff;">MeshCore</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><strong>General focus</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Broad public mesh ecosystem, easy onboarding, mapping, telemetry, and flexible channels.</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Secure off-grid messaging, signed adverts, selective forwarding, and repeater-oriented experimentation.</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><strong>US primary frequency</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">906.875 MHz</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">910.525 MHz</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><strong>Ease of entry</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Usually easier for beginners because of strong app and hardware support.</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">A little more specialized, but very attractive if you want the MeshCore feature set and community.</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><strong>Hardware ecosystem</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Very broad: RAK, Heltec, LilyGO, and more.</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Growing support across several strong boards and dedicated node platforms.</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><strong>Typical use</strong></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Public community mesh, sensors, travel nodes, portable use, and broad experimentation.</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Secure messaging, repeater builds, fixed installations, and routing-focused experimentation.</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Best answer for many people</strong></td>
+          <td style="padding: 10px;">Great starting point and still useful long-term.</td>
+          <td style="padding: 10px;">Excellent second protocol to explore, and for some operators it may become the main one.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="station-card">
   <h3>Meshtastic vs MeshCore</h3>
   <ul class="station-list">
     <li>
@@ -71,7 +118,7 @@ permalink: /mesh-radio/
       Common US primary frequency <strong>910.525 MHz</strong>.
     </li>
     <li>
-      <span class="station-label">MeshCore (PugetMesh / common US preset references):</span>
+      <span class="station-label">MeshCore (common US preset references):</span>
       Frequency <strong>910.525 MHz</strong>, bandwidth <strong>62.5 kHz</strong>, spreading factor <strong>7</strong>,
       coding rate <strong>5</strong>.
     </li>
@@ -183,6 +230,17 @@ permalink: /mesh-radio/
       Antenna placement usually matters most, antenna quality comes next, and filters become especially
       valuable once you start pushing range or dealing with a noisy site.
     </li>
+  </ul>
+</div>
+
+<div class="station-card">
+  <h3>Favorite MeshCore Hashtag Channels</h3>
+  <ul class="station-list">
+    <li><span class="station-label">#bot:</span> Handy for bot and automation experiments.</li>
+    <li><span class="station-label">#gmrs:</span> A natural crossover topic for local radio operators.</li>
+    <li><span class="station-label">#hamradio:</span> Good for broader amateur-radio mesh conversation.</li>
+    <li><span class="station-label">#northend:</span> Useful for north-end local context and regional coordination.</li>
+    <li><span class="station-label">#seattle:</span> Useful for city and metro-area discussion.</li>
   </ul>
 </div>
 

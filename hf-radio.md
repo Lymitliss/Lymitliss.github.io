@@ -19,6 +19,77 @@ permalink: /hf-radio/
   </p>
 </div>
 
+<section class="propagation">
+  <div class="propagation-header">
+    <h2>HF Propagation</h2>
+    <div class="live-badge">LIVE CONDITIONS</div>
+  </div>
+
+  <div class="prop-summary" id="prop-summary">
+    <div class="prop-summary-card">
+      <span class="prop-summary-label">Best Band Right Now</span>
+      <span class="prop-summary-value" id="best-band">Loading...</span>
+    </div>
+    <div class="prop-summary-card">
+      <span class="prop-summary-label">Overall HF Outlook</span>
+      <span class="prop-summary-value" id="hf-outlook">Loading...</span>
+    </div>
+    <div class="prop-summary-card">
+      <span class="prop-summary-label">Solar Snapshot</span>
+      <span class="prop-summary-value" id="solar-snapshot">Loading...</span>
+    </div>
+  </div>
+
+  <div class="propagation-widget">
+    <img src="https://www.hamqsl.com/solar101vhf.php?t={{ site.time | date: '%s' }}" alt="HF Propagation Conditions">
+    <p class="prop-last-updated" id="prop-last-updated">
+      Loading current solar data...
+    </p>
+  </div>
+
+  <div class="prop-grid smart-bands" id="smart-bands">
+    <div class="prop-card band-card" data-band="10m">
+      <div class="band-card-header">
+        <h3>10m</h3>
+        <span class="band-badge" id="badge-10m">Loading</span>
+      </div>
+      <p class="prop-note" id="note-10m">Evaluating current conditions...</p>
+    </div>
+
+    <div class="prop-card band-card" data-band="15m">
+      <div class="band-card-header">
+        <h3>15m</h3>
+        <span class="band-badge" id="badge-15m">Loading</span>
+      </div>
+      <p class="prop-note" id="note-15m">Evaluating current conditions...</p>
+    </div>
+
+    <div class="prop-card band-card" data-band="20m">
+      <div class="band-card-header">
+        <h3>20m</h3>
+        <span class="band-badge" id="badge-20m">Loading</span>
+      </div>
+      <p class="prop-note" id="note-20m">Evaluating current conditions...</p>
+    </div>
+
+    <div class="prop-card band-card" data-band="40m">
+      <div class="band-card-header">
+        <h3>40m</h3>
+        <span class="band-badge" id="badge-40m">Loading</span>
+      </div>
+      <p class="prop-note" id="note-40m">Evaluating current conditions...</p>
+    </div>
+
+    <div class="prop-card band-card" data-band="80m">
+      <div class="band-card-header">
+        <h3>80m</h3>
+        <span class="band-badge" id="badge-80m">Loading</span>
+      </div>
+      <p class="prop-note" id="note-80m">Evaluating current conditions...</p>
+    </div>
+  </div>
+</section>
+
 <div class="station-card">
   <h3>Popular HF Frequencies</h3>
   <div style="overflow-x: auto;">
@@ -203,3 +274,5 @@ permalink: /hf-radio/
     <li><span class="station-label">Best practice:</span> Treat these frequencies as starting points, then tune around them to find real activity.</li>
   </ul>
 </div>
+
+<script src="{{ '/assets/propagation.js' | relative_url }}"></script>

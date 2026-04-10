@@ -13,6 +13,7 @@
 <body>
   <div class="container">
 
+    <!-- NAVBAR -->
     <nav class="navbar">
       <a href="{{ '/' | relative_url }}" class="logo signal-pulse">
         Whiskey Oscar Zer<span class="callsign-zero">Ø</span> Foxtrot
@@ -32,13 +33,16 @@
       </div>
     </nav>
 
+    <!-- HOME BANNER (ONLY ON HOME) -->
     {% if page.url == "/" %}
     <div class="home-banner">
       <div class="home-banner-line">
         Into Meshcore or Meshtastic? Visit me at the
-        <a href="https://pugetmesh.org/" target="_blank">PugetMesh Discord</a>
+        <a href="https://pugetmesh.org/" target="_blank" rel="noopener">
+          PugetMesh Discord
+        </a>
       </div>
-      <div class="home-banner-line">
+      <div class="home-banner-line home-banner-line-secondary">
         Check out my
         <a href="{{ '/sdr' | relative_url }}" class="home-banner-link-blue">
           OpenWebRX SDR stream
@@ -48,6 +52,7 @@
     </div>
     {% endif %}
 
+    <!-- HERO -->
     <header class="hero">
       <h1 class="hero-title">WOØF</h1>
       <p class="hero-subtitle">Amateur - GMRS - Mesh Radio</p>
@@ -70,10 +75,12 @@
       </div>
     </header>
 
+    <!-- PAGE CONTENT -->
     <main>
       {{ content }}
     </main>
 
+    <!-- HF PROPAGATION (HOME ONLY) -->
     {% if page.url == "/" %}
     <section class="propagation">
       <div class="propagation-header">
@@ -83,38 +90,80 @@
 
       <div class="prop-summary" id="prop-summary">
         <div class="prop-summary-card">
-          <span>Best Band</span>
-          <strong id="best-band">Loading...</strong>
+          <span class="prop-summary-label">Best Band Right Now</span>
+          <span class="prop-summary-value" id="best-band">Loading...</span>
         </div>
         <div class="prop-summary-card">
-          <span>HF Outlook</span>
-          <strong id="hf-outlook">Loading...</strong>
+          <span class="prop-summary-label">Overall HF Outlook</span>
+          <span class="prop-summary-value" id="hf-outlook">Loading...</span>
         </div>
         <div class="prop-summary-card">
-          <span>Solar</span>
-          <strong id="solar-snapshot">Loading...</strong>
+          <span class="prop-summary-label">Solar Snapshot</span>
+          <span class="prop-summary-value" id="solar-snapshot">Loading...</span>
         </div>
       </div>
 
       <div class="propagation-widget">
-        <img src="https://www.hamqsl.com/solar101vhf.php?t={{ site.time | date: '%s' }}">
+        <img src="https://www.hamqsl.com/solar101vhf.php?t={{ site.time | date: '%s' }}" alt="HF Propagation Conditions">
+        <p class="prop-last-updated" id="prop-last-updated">
+          Loading current solar data...
+        </p>
       </div>
 
       <div class="prop-grid smart-bands" id="smart-bands">
-        <div class="prop-card band-card" data-band="10m"><h3>10m</h3></div>
-        <div class="prop-card band-card" data-band="15m"><h3>15m</h3></div>
-        <div class="prop-card band-card" data-band="20m"><h3>20m</h3></div>
-        <div class="prop-card band-card" data-band="40m"><h3>40m</h3></div>
-        <div class="prop-card band-card" data-band="80m"><h3>80m</h3></div>
+
+        <div class="prop-card band-card" data-band="10m">
+          <div class="band-card-header">
+            <h3>10m</h3>
+            <span class="band-badge" id="badge-10m">Loading</span>
+          </div>
+          <p class="prop-note" id="note-10m">Evaluating current conditions...</p>
+        </div>
+
+        <div class="prop-card band-card" data-band="15m">
+          <div class="band-card-header">
+            <h3>15m</h3>
+            <span class="band-badge" id="badge-15m">Loading</span>
+          </div>
+          <p class="prop-note" id="note-15m">Evaluating current conditions...</p>
+        </div>
+
+        <div class="prop-card band-card" data-band="20m">
+          <div class="band-card-header">
+            <h3>20m</h3>
+            <span class="band-badge" id="badge-20m">Loading</span>
+          </div>
+          <p class="prop-note" id="note-20m">Evaluating current conditions...</p>
+        </div>
+
+        <div class="prop-card band-card" data-band="40m">
+          <div class="band-card-header">
+            <h3>40m</h3>
+            <span class="band-badge" id="badge-40m">Loading</span>
+          </div>
+          <p class="prop-note" id="note-40m">Evaluating current conditions...</p>
+        </div>
+
+        <div class="prop-card band-card" data-band="80m">
+          <div class="band-card-header">
+            <h3>80m</h3>
+            <span class="band-badge" id="badge-80m">Loading</span>
+          </div>
+          <p class="prop-note" id="note-80m">Evaluating current conditions...</p>
+        </div>
+
       </div>
     </section>
 
     <script src="{{ '/assets/propagation.js' | relative_url }}"></script>
     {% endif %}
 
+    <!-- FOOTER -->
     <footer>
-      <p>© {{ site.time | date: "%Y" }} WOØF</p>
-      <img src="https://visitor-badge.laobi.icu/badge?page_id=wo0f.wo0f.com">
+      <p>© {{ site.time | date: "%Y" }} WOØF | Amateur Radio Station</p>
+      <div class="counter">
+        <img src="https://visitor-badge.laobi.icu/badge?page_id=wo0f.wo0f.com" alt="Visitor counter">
+      </div>
     </footer>
 
   </div>

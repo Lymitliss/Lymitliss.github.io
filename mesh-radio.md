@@ -7,7 +7,7 @@ permalink: /mesh-radio/
 ## Mesh Radio
 
 <div class="station-card">
-  <h3>Overview</h3>
+  <h3 class="mesh-title">Overview</h3>
   <p>
     Mesh radio is one of the most interesting parts of the station right now. Both
     <strong>Meshtastic</strong> and <strong>MeshCore</strong> use LoRa hardware to build off-grid,
@@ -23,7 +23,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Quick Comparison</h3>
+  <h3 class="mesh-title">Quick Comparison</h3>
   <div style="overflow-x: auto;">
     <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
       <thead>
@@ -70,7 +70,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Meshtastic vs MeshCore</h3>
+  <h3 class="mesh-title">Meshtastic vs MeshCore</h3>
   <ul class="station-list">
     <li>
       <span class="station-label">Meshtastic:</span>
@@ -100,7 +100,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Default US Settings</h3>
+  <h3 class="mesh-title">Default US Settings</h3>
   <ul class="station-list">
     <li>
       <span class="station-label">Meshtastic (US default public mesh):</span>
@@ -131,7 +131,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Popular Meshtastic Nodes</h3>
+  <h3 class="mesh-title">Popular Meshtastic Nodes</h3>
   <ul class="station-list">
     <li>
       <span class="station-label">RAK WisBlock / WisMesh:</span>
@@ -157,7 +157,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Popular MeshCore Nodes</h3>
+  <h3 class="mesh-title">Popular MeshCore Nodes</h3>
   <ul class="station-list">
     <li>
       <span class="station-label">Station G2:</span>
@@ -183,7 +183,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Popular Antennas</h3>
+  <h3 class="mesh-title">Popular Antennas</h3>
   <ul class="station-list">
     <li>
       <span class="station-label">Small stock / internal antennas:</span>
@@ -213,7 +213,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Popular Filters</h3>
+  <h3 class="mesh-title">Popular Filters</h3>
   <ul class="station-list">
     <li>
       <span class="station-label">Broken Circuit Ranch 915 MHz filters:</span>
@@ -234,7 +234,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Favorite MeshCore Hashtag Channels</h3>
+  <h3 class="mesh-title">Favorite MeshCore Hashtag Channels</h3>
   <ul class="station-list">
     <li><span class="station-label">#bot:</span> Handy for bot and automation experiments.</li>
     <li><span class="station-label">#gmrs:</span> A natural crossover topic for local radio operators.</li>
@@ -245,7 +245,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Choosing Between Them</h3>
+  <h3 class="mesh-title">Choosing Between Them</h3>
   <ul class="station-list">
     <li>
       <span class="station-label">Choose Meshtastic if:</span>
@@ -264,7 +264,7 @@ permalink: /mesh-radio/
 </div>
 
 <div class="station-card">
-  <h3>Thank You</h3>
+  <h3 class="mesh-title">Thank You</h3>
   <p>
     A sincere thank you to the great group of people at
     <a href="https://pugetmesh.org/" target="_blank" rel="noopener" class="accent-link">PugetMesh</a>.

@@ -20,21 +20,11 @@ body {
 .nav-links {
   display: flex;
   gap: 15px;
-  flex-wrap: wrap;
 }
 
 .nav-links a {
   color: #c9d1d9;
   text-decoration: none;
-  position: relative;
-}
-
-.nav-links a + a::before {
-  content: "|";
-  color: #6b7280;
-  margin-right: 15px;
-  position: relative;
-  left: -7.5px;
 }
 
 .nav-links a:hover {
@@ -57,25 +47,6 @@ body {
   padding: 15px;
   border-left: 4px solid #58a6ff;
   margin-top: 20px;
-}
-
-h2,
-.station-card h3 {
-  position: relative;
-  padding-left: 14px;
-}
-
-h2::before,
-.station-card h3::before {
-  content: "";
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #facc15;
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  transform: translateY(-50%);
 }
 
 .mesh-title {

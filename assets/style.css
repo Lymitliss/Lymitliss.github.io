@@ -67,10 +67,12 @@ body {
 .nav-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 18px;
+  gap: 0;
 }
 
 .nav-links a {
+  display: inline-flex;
+  align-items: center;
   text-decoration: none;
   color: #c9d1d9;
   font-weight: 500;
@@ -81,9 +83,10 @@ body {
   color: #58a6ff;
 }
 
-.nav-links a + a {
-  border-left: 1px solid #30363d;
-  padding-left: 18px;
+.nav-links a + a::before {
+  content: "|";
+  color: #4b5563;
+  margin: 0 12px;
 }
 
 .nav-links a[target="_blank"]::after {
@@ -552,10 +555,6 @@ footer {
 
   .nav-links {
     flex-wrap: wrap;
-  }
-
-  .nav-links a + a {
-    padding-left: 12px;
   }
 
   .station-info {

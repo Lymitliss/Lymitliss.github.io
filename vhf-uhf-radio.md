@@ -38,7 +38,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">146.960</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">2m</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">103.5</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://psrg.org/" target="_blank" rel="noopener">WW7PSR</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">WW7PSR</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle / Capitol Hill</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">One of the best-known Seattle-area voice repeaters.</td>
         </tr>
@@ -46,7 +46,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">146.900</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">2m</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">103.5</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://mtsrepeater.org/" target="_blank" rel="noopener">WW7MST</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">WW7MST</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle / Beacon Hill</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Common local voice machine with good city coverage.</td>
         </tr>
@@ -54,7 +54,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">145.130</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">2m</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">103.5</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://www.w7aw.org/" target="_blank" rel="noopener">W7AW</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">W7AW</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">West Seattle Amateur Radio Club repeater.</td>
         </tr>
@@ -62,7 +62,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">441.800</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">70cm</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">141.3</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://www.w7aw.org/" target="_blank" rel="noopener">W7AW</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">W7AW</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle / Myrtle Reservoir Park</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Well-known local 70cm voice repeater.</td>
         </tr>
@@ -70,7 +70,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">442.875</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">70cm</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">141.3</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://w7acs.org/" target="_blank" rel="noopener">W7ACS</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">W7ACS</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle / Capitol Hill</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Common Seattle voice repeater; often a good one to have programmed.</td>
         </tr>
@@ -78,7 +78,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">443.000</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">70cm</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">156.7</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://w7acs.org/" target="_blank" rel="noopener">W7ACS</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">W7ACS</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Another useful local voice machine.</td>
         </tr>
@@ -86,7 +86,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">443.200</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">70cm</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">141.3</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://w7acs.org/" target="_blank" rel="noopener">W7ACS</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">W7ACS</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle / Westcrest Park</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Good local coverage repeater for the south/west side.</td>
         </tr>
@@ -94,7 +94,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">443.475</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">70cm</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">141.3</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://w7acs.org/" target="_blank" rel="noopener">W7ACS</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">W7ACS</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Common local voice repeater with linked capabilities listed in directories.</td>
         </tr>
@@ -102,7 +102,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">443.550</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">70cm</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">103.5</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://mtsrepeater.org/" target="_blank" rel="noopener">WW7MST</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">WW7MST</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle / Beacon Hill</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Another strong Seattle-area voice option.</td>
         </tr>
@@ -110,7 +110,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">443.650</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">70cm</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">141.3</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://w7acs.org/" target="_blank" rel="noopener">W7ACS</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">W7ACS</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle / Roosevelt Hill</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Useful north Seattle voice machine.</td>
         </tr>
@@ -118,7 +118,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">444.000</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">70cm</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">103.5</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://www.k7spg.com/" target="_blank" rel="noopener">K7SPG</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">K7SPG</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Widely programmed local machine.</td>
         </tr>
@@ -126,7 +126,7 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">444.225</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">70cm</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">123.0</td>
-          <td style="padding: 10px; border-bottom: 1px solid #1f2933;"><a href="https://www.qrz.com/db/KB7WCE" target="_blank" rel="noopener">KB7WCE</a></td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">KB7WCE</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Seattle</td>
           <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Another practical local voice option.</td>
         </tr>
@@ -134,11 +134,32 @@ permalink: /vhf-uhf-radio/
           <td style="padding: 10px;">444.375</td>
           <td style="padding: 10px;">70cm</td>
           <td style="padding: 10px;">88.5</td>
-          <td style="padding: 10px;"><a href="https://www.qrz.com/db/AJ7JA" target="_blank" rel="noopener">AJ7JA</a></td>
+          <td style="padding: 10px;">AJ7JA</td>
           <td style="padding: 10px;">Seattle / Capitol Hill</td>
           <td style="padding: 10px;">Regularly listed among Seattle-area open voice repeaters.</td>
         </tr>
       </tbody>
     </table>
   </div>
+</div>
+
+<div class="station-card">
+  <h3>Simplex Favorites</h3>
+  <ul class="station-list">
+    <li><span class="station-label">146.520:</span> 2m national calling frequency.</li>
+    <li><span class="station-label">146.550:</span> Common regional simplex usage.</li>
+    <li><span class="station-label">146.580:</span> Another useful local simplex channel.</li>
+    <li><span class="station-label">446.000:</span> 70cm national calling frequency.</li>
+    <li><span class="station-label">446.500:</span> Common local 70cm simplex frequency.</li>
+  </ul>
+</div>
+
+<div class="station-card">
+  <h3>Programming Notes</h3>
+  <ul class="station-list">
+    <li><span class="station-label">Start simple:</span> Program the 2m calling frequency, a few core 2m repeaters, and a few 70cm repeaters first.</li>
+    <li><span class="station-label">Tone matters:</span> Most of these machines require the listed CTCSS tone to key up cleanly.</li>
+    <li><span class="station-label">Activity varies:</span> Some repeaters are busy daily, while others are more net- or event-driven.</li>
+    <li><span class="station-label">Best practice:</span> Listen first, learn local usage patterns, and then decide which machines deserve prime memory slots in your radio.</li>
+  </ul>
 </div>

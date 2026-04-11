@@ -211,6 +211,60 @@ permalink: /hf-radio/
 </div>
 
 <div class="station-card">
+  <h3>Popular Numbers Stations (HF)</h3>
+  <div style="overflow-x: auto;">
+    <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">
+      <thead>
+        <tr>
+          <th style="text-align: left; padding: 10px; border-bottom: 1px solid #1f2933; color: #58a6ff;">Frequency</th>
+          <th style="text-align: left; padding: 10px; border-bottom: 1px solid #1f2933; color: #58a6ff;">Station / Type</th>
+          <th style="text-align: left; padding: 10px; border-bottom: 1px solid #1f2933; color: #58a6ff;">Mode</th>
+          <th style="text-align: left; padding: 10px; border-bottom: 1px solid #1f2933; color: #58a6ff;">Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">4625 kHz</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">UVB-76 ("The Buzzer")</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">USB</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Constant buzzing with occasional voice messages; widely monitored.</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">4724 kHz</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">HFGCS / EAM</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">USB</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Night frequency often associated with strategic shortwave traffic.</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">8992 kHz</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">HFGCS / EAM</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">USB</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">One of the best-known HFGCS frequencies.</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">11175 kHz</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">HFGCS / EAM</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">USB</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Probably the most recognized HFGCS frequency.</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">13200 kHz</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">HFGCS / EAM</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">USB</td>
+          <td style="padding: 10px; border-bottom: 1px solid #1f2933;">Daytime channel often monitored alongside 11175 and 15016.</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;">15016 kHz</td>
+          <td style="padding: 10px;">HFGCS / EAM</td>
+          <td style="padding: 10px;">USB</td>
+          <td style="padding: 10px;">Common daytime frequency for long-range strategic traffic monitoring.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="station-card">
   <h3>Popular Digital Mode Frequencies</h3>
   <div style="overflow-x: auto;">
     <table style="width: 100%; border-collapse: collapse; font-size: 0.95rem;">

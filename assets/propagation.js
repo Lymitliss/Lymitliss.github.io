@@ -184,19 +184,61 @@
   }
 
   function buildBandNote(band, rating, flux, kp, rScale, daytime) {
+    const timeHint = daytime ? "daytime" : "nighttime";
+
+    if (band === "10m") {
+      if (rating === "Good") return `Strong ${timeHint} DX potential. High solar flux is helping the upper HF bands.`;
+      if (rating === "Fair") return `Watch for openings, especially in daylight. Conditions are present but not wide open.`;
+      return `Upper-band conditions are weak right now. 10m is likely spotty unless a brief opening develops.`;
+    }
+
     if (band === "12m") {
-      if (rating === "Good") return "Strong daytime DX potential. 12m is opening well.";
-      if (rating === "Fair") return "Watch for daylight openings.";
-      return "Limited openings right now.";
+      if (rating === "Good") return `Strong daytime DX potential. 12m is opening well with current solar conditions.`;
+      if (rating === "Fair") return `Watch for openings during the day. Often follows 10m conditions but slightly more stable.`;
+      return `Limited openings right now. Check during peak daylight hours.`;
+    }
+
+    if (band === "15m") {
+      if (rating === "Good") return `Very workable daytime band with solid DX potential and good solar support.`;
+      if (rating === "Fair") return `Usable and worth checking. Expect decent daylight performance with some variability.`;
+      return `More limited than usual right now. Still worth checking during stronger daylight periods.`;
     }
 
     if (band === "17m") {
-      if (rating === "Good") return "Very solid band with reliable DX.";
-      if (rating === "Fair") return "Usable and often quieter than 20m.";
-      return "Limited but still worth checking.";
+      if (rating === "Good") return `Very solid band right now with reliable DX and less congestion than 20m.`;
+      if (rating === "Fair") return `Usable band with moderate performance. Often a good alternative to 20m.`;
+      return `More limited right now, but can still outperform higher bands in marginal conditions.`;
     }
 
-    return `Flux ${Math.round(flux)}, Kp ${kp.toFixed(1)}, R${rScale}`;
+    if (band === "20m") {
+      if (rating === "Good") return `Best all-around choice right now. Reliable blend of regional and longer-haul potential.`;
+      if (rating === "Fair") return `Still a dependable fallback band. Conditions should be usable even if not exceptional.`;
+      return `More unsettled than normal, but 20m may still outperform the higher bands.`;
+    }
+
+    if (band === "40m") {
+      if (rating === "Good") return daytime
+        ? `Usable for regional work, though it should improve further after dark.`
+        : `Strong nighttime/regional choice right now with dependable coverage potential.`;
+      if (rating === "Fair") return daytime
+        ? `Moderate daytime regional option. Better after sunset.`
+        : `Reasonable nighttime regional band with some variability.`;
+      return `Regional work may be noisy or inconsistent at the moment.`;
+    }
+
+    if (band === "80m") {
+      if (rating === "Good") return daytime
+        ? `Unusual but possible local coverage. Expect this band to come alive more after dark.`
+        : `Strong local/nighttime band right now with good near-regional potential.`;
+      if (rating === "Fair") return daytime
+        ? `Mostly a later-evening play. Daylight performance is usually limited.`
+        : `Usable nighttime local band, though not at peak quality right now.`;
+      return daytime
+        ? `Poor daytime band right now, which is normal. Check again after sunset.`
+        : `Current conditions are limiting even the lower bands somewhat.`;
+    }
+
+    return `Flux ${Math.round(flux)}, Kp ${kp.toFixed(1)}, R${rScale}.`;
   }
 
   function applyBandState(band, score, isBest, note) {
@@ -218,8 +260,29 @@
 
   async function fetchJson(url) {
     const response = await fetch(`${url}?t=${Date.now()}`, { cache: "no-store" });
-    if (!response.ok) throw new Error(`Fetch failed`);
+    if (!response.ok) {
+      throw new Error(`Fetch failed: ${url}`);
+    }
     return response.json();
+  }
+
+  function setFallback(message) {
+    const best = byId("best-band");
+    const outlook = byId("hf-outlook");
+    const snapshot = byId("solar-snapshot");
+    const updated = byId("prop-last-updated");
+
+    if (best) best.textContent = "Unavailable";
+    if (outlook) outlook.textContent = "Data fetch failed";
+    if (snapshot) snapshot.textContent = message;
+    if (updated) updated.textContent = "Live NOAA solar data could not be loaded right now.";
+
+    ["10m", "12m", "15m", "17m", "20m", "40m", "80m"].forEach((band) => {
+      const badge = byId(`badge-${band}`);
+      const note = byId(`note-${band}`);
+      if (badge) badge.textContent = "Offline";
+      if (note) note.textContent = "Current solar data unavailable. The HamQSL panel above may still load normally.";
+    });
   }
 
   async function initPropagation() {
@@ -233,33 +296,52 @@
       const kpRows = normalizeRows(kpRaw);
       const fluxRows = normalizeRows(fluxRaw);
 
-      const kp = Number(getLatest(kpRows, "Kp")?.Kp || 3);
-      const flux = Number(getLatest(fluxRows, "flux")?.flux || 100);
-      const rScale = Number(getNoaaNow(scalesRaw)?.R?.Scale || 0);
+      const latestKpRow = getLatest(kpRows, "Kp");
+      const latestFluxRow = getLatest(fluxRows, "flux");
+      const noaaNow = getNoaaNow(scalesRaw);
 
+      if (!latestKpRow || !latestFluxRow || !noaaNow) {
+        throw new Error("NOAA data structure was not usable.");
+      }
+
+      const kp = safeNumber(latestKpRow.Kp, 3);
+      const flux = safeNumber(latestFluxRow.flux, 100);
+      const rScale = safeNumber(noaaNow?.R?.Scale, 0);
+      const rText = noaaNow?.R?.Text ? String(noaaNow.R.Text) : "none";
       const daytime = isDaytime();
 
-      const scores = BAND_CONFIG.map(b => ({
-        band: b.name,
-        score: scoreBand(b.name, flux, kp, rScale, daytime)
-      }));
+      const bandScores = BAND_CONFIG.map(({ name }) => ({
+        band: name,
+        score: scoreBand(name, flux, kp, rScale, daytime)
+      })).sort((a, b) => b.score - a.score);
 
-      const best = scores.sort((a,b)=>b.score-a.score)[0].band;
+      const bestBand = bandScores[0]?.band || "20m";
+      const outlook = buildOutlook(flux, kp, rScale);
 
-      scores.forEach(({band, score})=>{
+      if (byId("best-band")) byId("best-band").textContent = bestBand;
+      if (byId("hf-outlook")) byId("hf-outlook").textContent = outlook;
+      if (byId("solar-snapshot")) byId("solar-snapshot").textContent = describeSolarState(flux, kp, rScale);
+      if (byId("prop-last-updated")) {
+        byId("prop-last-updated").textContent =
+          `NOAA data loaded • Flux ${Math.round(flux)} • Kp ${kp.toFixed(1)} • Radio blackout scale: R${rScale} (${rText})`;
+      }
+
+      BAND_CONFIG.forEach(({ name }) => {
+        const found = bandScores.find((item) => item.band === name);
+        const score = found ? found.score : 50;
         const rating = classifyScore(score).label;
-        const note = buildBandNote(band, rating, flux, kp, rScale, daytime);
-        applyBandState(band, score, band===best, note);
+        const note = buildBandNote(name, rating, flux, kp, rScale, daytime);
+        applyBandState(name, score, name === bestBand, note);
       });
-
-      byId("best-band").textContent = best;
-      byId("hf-outlook").textContent = buildOutlook(flux, kp, rScale);
-      byId("solar-snapshot").textContent = describeSolarState(flux, kp, rScale);
-
-    } catch (e) {
-      console.error(e);
+    } catch (error) {
+      console.error("Propagation data load failed:", error);
+      setFallback("Unable to retrieve NOAA solar data.");
     }
   }
 
-  document.addEventListener("DOMContentLoaded", initPropagation);
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPropagation);
+  } else {
+    initPropagation();
+  }
 })();

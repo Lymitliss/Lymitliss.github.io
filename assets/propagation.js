@@ -9,6 +9,7 @@
     { name: "15m" },
     { name: "17m" },
     { name: "20m" },
+    { name: "30m" },
     { name: "40m" },
     { name: "80m" }
   ];
@@ -24,7 +25,6 @@
 
   function normalizeRows(raw) {
     if (!Array.isArray(raw)) return [];
-
     if (raw.length === 0) return [];
 
     if (typeof raw[0] === "object" && raw[0] !== null && !Array.isArray(raw[0])) {
@@ -66,6 +66,31 @@
   function isDaytime() {
     const hour = new Date().getHours();
     return hour >= 6 && hour < 18;
+  }
+
+  function getGraylineState() {
+    const hour = new Date().getHours();
+    if ((hour >= 5 && hour < 8) || (hour >= 17 && hour < 20)) {
+      return "grayline";
+    }
+    if (hour >= 6 && hour < 18) {
+      return "day";
+    }
+    return "night";
+  }
+
+  function buildGraylineHint() {
+    const state = getGraylineState();
+
+    if (state === "grayline") {
+      return "Grayline hint: Sunrise/sunset window. 20m, 30m, and 40m can be especially worth checking right now.";
+    }
+
+    if (state === "day") {
+      return "Grayline hint: Full daylight right now. Upper bands usually benefit most outside the sunrise/sunset transition window.";
+    }
+
+    return "Grayline hint: Night conditions right now. Lower bands and 30m/40m often become more dependable after dark.";
   }
 
   function classifyScore(score) {
@@ -141,14 +166,14 @@
         break;
 
       case "17m":
-        score = 42;
+        score = 48;
         if (daytime) score += 10;
-        else score += 4;
-        if (flux >= 130) score += 18;
+        else score += 6;
+        if (flux >= 130) score += 16;
         else if (flux >= 110) score += 12;
-        else if (flux >= 95) score += 6;
-        score -= kp * 3.2;
-        score -= rScale * 6;
+        else if (flux >= 95) score += 7;
+        score -= kp * 2.8;
+        score -= rScale * 5;
         break;
 
       case "20m":
@@ -160,6 +185,17 @@
         else if (flux >= 95) score += 5;
         score -= kp * 2.8;
         score -= rScale * 5;
+        break;
+
+      case "30m":
+        score = 56;
+        if (!daytime) score += 10;
+        else score += 4;
+        if (flux >= 130) score += 8;
+        else if (flux >= 110) score += 6;
+        else if (flux >= 95) score += 3;
+        score -= kp * 2.2;
+        score -= rScale * 4;
         break;
 
       case "40m":
@@ -206,8 +242,8 @@
 
     if (band === "17m") {
       if (rating === "Good") return `Very solid band right now with reliable DX and less congestion than 20m.`;
-      if (rating === "Fair") return `Usable band with moderate performance. Often a good alternative to 20m.`;
-      return `More limited right now, but can still outperform higher bands in marginal conditions.`;
+      if (rating === "Fair") return `Usable band with moderate performance. Often a stable fallback when 15m and 12m are uneven.`;
+      return `More limited right now, but 17m can still outperform higher bands in marginal conditions.`;
     }
 
     if (band === "20m") {
@@ -216,23 +252,37 @@
       return `More unsettled than normal, but 20m may still outperform the higher bands.`;
     }
 
+    if (band === "30m") {
+      if (rating === "Good") return `Excellent digital-focused band right now. Strong candidate for FT8, WSPR, and quieter long-haul work.`;
+      if (rating === "Fair") return `Usable digital band with good odds of steady performance, especially around grayline and after dark.`;
+      return `Conditions are less impressive right now, but 30m can still be worth checking for digital activity.`;
+    }
+
     if (band === "40m") {
-      if (rating === "Good") return daytime
-        ? `Usable for regional work, though it should improve further after dark.`
-        : `Strong nighttime/regional choice right now with dependable coverage potential.`;
-      if (rating === "Fair") return daytime
-        ? `Moderate daytime regional option. Better after sunset.`
-        : `Reasonable nighttime regional band with some variability.`;
+      if (rating === "Good") {
+        return daytime
+          ? `Usable for regional work, though it should improve further after dark.`
+          : `Strong nighttime/regional choice right now with dependable coverage potential.`;
+      }
+      if (rating === "Fair") {
+        return daytime
+          ? `Moderate daytime regional option. Better after sunset.`
+          : `Reasonable nighttime regional band with some variability.`;
+      }
       return `Regional work may be noisy or inconsistent at the moment.`;
     }
 
     if (band === "80m") {
-      if (rating === "Good") return daytime
-        ? `Unusual but possible local coverage. Expect this band to come alive more after dark.`
-        : `Strong local/nighttime band right now with good near-regional potential.`;
-      if (rating === "Fair") return daytime
-        ? `Mostly a later-evening play. Daylight performance is usually limited.`
-        : `Usable nighttime local band, though not at peak quality right now.`;
+      if (rating === "Good") {
+        return daytime
+          ? `Unusual but possible local coverage. Expect this band to come alive more after dark.`
+          : `Strong local/nighttime band right now with good near-regional potential.`;
+      }
+      if (rating === "Fair") {
+        return daytime
+          ? `Mostly a later-evening play. Daylight performance is usually limited.`
+          : `Usable nighttime local band, though not at peak quality right now.`;
+      }
       return daytime
         ? `Poor daytime band right now, which is normal. Check again after sunset.`
         : `Current conditions are limiting even the lower bands somewhat.`;
@@ -252,7 +302,10 @@
 
     const { label, className } = classifyScore(score);
     card.classList.add(className);
-    if (isBest) card.classList.add("band-best");
+
+    if (isBest) {
+      card.classList.add("band-best");
+    }
 
     badge.textContent = label;
     noteEl.textContent = note;
@@ -271,13 +324,15 @@
     const outlook = byId("hf-outlook");
     const snapshot = byId("solar-snapshot");
     const updated = byId("prop-last-updated");
+    const graylineHint = byId("grayline-hint");
 
     if (best) best.textContent = "Unavailable";
     if (outlook) outlook.textContent = "Data fetch failed";
     if (snapshot) snapshot.textContent = message;
     if (updated) updated.textContent = "Live NOAA solar data could not be loaded right now.";
+    if (graylineHint) graylineHint.textContent = buildGraylineHint();
 
-    ["10m", "12m", "15m", "17m", "20m", "40m", "80m"].forEach((band) => {
+    ["10m", "12m", "15m", "17m", "20m", "30m", "40m", "80m"].forEach((band) => {
       const badge = byId(`badge-${band}`);
       const note = byId(`note-${band}`);
       if (badge) badge.textContent = "Offline";
@@ -318,12 +373,21 @@
       const bestBand = bandScores[0]?.band || "20m";
       const outlook = buildOutlook(flux, kp, rScale);
 
-      if (byId("best-band")) byId("best-band").textContent = bestBand;
-      if (byId("hf-outlook")) byId("hf-outlook").textContent = outlook;
-      if (byId("solar-snapshot")) byId("solar-snapshot").textContent = describeSolarState(flux, kp, rScale);
+      if (byId("best-band")) {
+        byId("best-band").textContent = bestBand;
+      }
+      if (byId("hf-outlook")) {
+        byId("hf-outlook").textContent = outlook;
+      }
+      if (byId("solar-snapshot")) {
+        byId("solar-snapshot").textContent = describeSolarState(flux, kp, rScale);
+      }
       if (byId("prop-last-updated")) {
         byId("prop-last-updated").textContent =
           `NOAA data loaded • Flux ${Math.round(flux)} • Kp ${kp.toFixed(1)} • Radio blackout scale: R${rScale} (${rText})`;
+      }
+      if (byId("grayline-hint")) {
+        byId("grayline-hint").textContent = buildGraylineHint();
       }
 
       BAND_CONFIG.forEach(({ name }) => {

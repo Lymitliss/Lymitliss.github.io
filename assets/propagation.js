@@ -408,4 +408,6 @@
   } else {
     initPropagation();
   }
+
+  setInterval(initPropagation, 300000);
 })();

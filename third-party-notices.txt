@@ -1,0 +1,41 @@
+WO0F MeshCore Map — Third-Party Notices
+
+This package contains original custom page and proxy code created for WO0F.
+It also uses third-party libraries, tiles, and a public API as listed below.
+
+1) Leaflet
+   Purpose: Interactive web map rendering
+   Source: https://github.com/Leaflet/Leaflet
+   Package usage here: Loaded from CDN at runtime
+   License: BSD 2-Clause
+   Notice: If you redistribute or self-host the Leaflet library files, preserve the Leaflet copyright and license notice.
+
+2) Leaflet.markercluster
+   Purpose: Marker clustering for large node sets
+   Source: https://github.com/Leaflet/Leaflet.markercluster
+   Package usage here: Loaded from CDN at runtime
+   License: MIT
+   Notice: If you redistribute or self-host the Leaflet.markercluster library files, preserve the copyright and permission notice.
+
+3) OpenStreetMap tiles
+   Purpose: Basemap tiles
+   Source: https://www.openstreetmap.org/
+   Usage here: Raster tiles requested by the browser at runtime
+   Attribution required: © OpenStreetMap contributors
+   Important: Keep the OpenStreetMap attribution clearly visible on the map.
+
+4) MeshCore public nodes API
+   Purpose: Live MeshCore node data
+   Endpoint used: https://map.meshcore.io/api/v1/nodes
+   Usage here: Queried directly by the page, with optional same-domain proxy fallback
+   Notice: This package uses the public API endpoint for data. It does not bundle copied MeshCore frontend code.
+
+Files in this package that are original to WO0F deployment:
+- meshcore-map.md
+- meshcore-proxy-worker.js
+- meshcore-map-install.txt
+
+Recommended recordkeeping:
+- Keep this file with the deployment package or repository.
+- Keep licenses.md with the deployment package or repository.
+- Keep the OpenStreetMap attribution visible in the live map page.

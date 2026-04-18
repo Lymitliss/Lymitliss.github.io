@@ -281,6 +281,23 @@ permalink: /meshcore-map/
     background: #0d1117;
   }
 
+
+  /* Prevent site-wide image rules from breaking Leaflet tiles/markers */
+  #meshcore-map .leaflet-pane img,
+  #meshcore-map .leaflet-tile,
+  #meshcore-map .leaflet-marker-icon,
+  #meshcore-map .leaflet-marker-shadow,
+  #meshcore-map .leaflet-control img {
+    max-width: none !important;
+    max-height: none !important;
+    width: auto;
+    height: auto;
+  }
+
+  #meshcore-map .leaflet-tile {
+    display: block;
+  }
+
   .meshcore-node-marker {
     width: 18px;
     height: 18px;
@@ -519,6 +536,13 @@ permalink: /meshcore-map/
       return date.toLocaleString();
     }
 
+
+    function invalidateMapSize() {
+      requestAnimationFrame(() => map.invalidateSize(false));
+      setTimeout(() => map.invalidateSize(false), 150);
+      setTimeout(() => map.invalidateSize(false), 600);
+    }
+
     function markerIcon(role) {
       const color = getColorForRole(role);
       return L.divIcon({
@@ -620,6 +644,7 @@ permalink: /meshcore-map/
       const bounds = group.getBounds();
       if (bounds.isValid()) {
         map.fitBounds(bounds.pad(0.12), { maxZoom: 10 });
+        invalidateMapSize();
       }
     }
 
@@ -673,6 +698,7 @@ permalink: /meshcore-map/
         setPillState(els.livePill, `Live • ${nodes.length} nodes loaded`, "live");
         els.sourcePill.textContent = `Source: ${source}`;
         applyFilters();
+        invalidateMapSize();
       } catch (error) {
         allNodes = [];
         applyFilters();
@@ -694,6 +720,13 @@ permalink: /meshcore-map/
         els.refreshPill.textContent = `Auto refresh: ${remaining}s`;
       }, 1000);
     }
+
+
+    window.addEventListener("load", invalidateMapSize);
+    window.addEventListener("resize", invalidateMapSize);
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden) invalidateMapSize();
+    });
 
     els.refreshBtn.addEventListener("click", refreshData);
     els.fitBtn.addEventListener("click", fitToMarkers);

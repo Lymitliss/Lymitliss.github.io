@@ -979,11 +979,14 @@ permalink: /meshcore-map/
       darkBasemap = urlState.darkBasemap;
     }
 
+    const INITIAL_SEATTLE_CENTER = [47.6062, -122.3321];
+    const INITIAL_SEATTLE_ZOOM = 7;
+
     const map = L.map("meshcore-map", {
       zoomControl: true,
       worldCopyJump: true,
       preferCanvas: true
-    }).setView(urlState.view?.center || [47.6062, -122.3321], urlState.view?.zoom || 7);
+    }).setView(INITIAL_SEATTLE_CENTER, INITIAL_SEATTLE_ZOOM);
 
     L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
@@ -1765,8 +1768,10 @@ permalink: /meshcore-map/
       copyText(node?.meshcoreLink || "", "MeshCore link");
     });
 
-    if (!urlState.view) {
-      els.presetButtons.forEach((button) => button.classList.toggle("active", button.dataset.preset === "seattle"));
+    els.presetButtons.forEach((button) => button.classList.toggle("active", button.dataset.preset === "seattle"));
+
+    if (window.location.search.includes("view=")) {
+      syncUrlStateSoon();
     }
 
     refreshData();

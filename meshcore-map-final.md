@@ -1006,7 +1006,7 @@ permalink: /meshcore-map/
     let visibleMarkers = [];
     let markersById = new Map();
     let selectedNodeId = null;
-    let firstFitDone = false;
+    let firstFitDone = true;
     let refreshTimer = null;
     let countdownTimer = null;
     let nextRefreshAt = Date.now() + REFRESH_MS;
@@ -1764,6 +1764,10 @@ permalink: /meshcore-map/
       const node = selectedNodeId && (filteredNodes.find((item) => item.id === selectedNodeId) || allNodes.find((item) => item.id === selectedNodeId));
       copyText(node?.meshcoreLink || "", "MeshCore link");
     });
+
+    if (!urlState.view) {
+      els.presetButtons.forEach((button) => button.classList.toggle("active", button.dataset.preset === "seattle"));
+    }
 
     refreshData();
     startRefreshLoop();

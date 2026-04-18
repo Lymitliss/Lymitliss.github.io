@@ -404,19 +404,13 @@ permalink: /meshcore-map/
     }
 
     function roleKeyFromNode(node) {
-      const raw = String(
-        node.role ||
-        node.type ||
-        node.nodeType ||
-        node.kind ||
-        node.deviceType ||
-        "other"
-      ).toLowerCase();
+      const rawValue = node.role ?? node.type ?? node.nodeType ?? node.kind ?? node.deviceType ?? "other";
+      const raw = String(rawValue).toLowerCase().trim();
 
-      if (raw.includes("repeat")) return "repeater";
-      if (raw.includes("room")) return "room";
-      if (raw.includes("sensor")) return "sensor";
-      if (raw.includes("client") || raw.includes("companion") || raw.includes("node")) return "client";
+      if (raw === "1" || raw === "chat" || raw.includes("client") || raw.includes("companion") || raw.includes("node")) return "client";
+      if (raw === "2" || raw.includes("repeat")) return "repeater";
+      if (raw === "3" || raw.includes("room")) return "room";
+      if (raw === "4" || raw.includes("sensor")) return "sensor";
       return "other";
     }
 
@@ -441,10 +435,10 @@ permalink: /meshcore-map/
 
     function normalizeNode(node, index) {
       const lat = extractCoord(node, [
-        "lat", "latitude", "position.lat", "location.lat", "coords.lat", "gps.lat"
+        "lat", "latitude", "adv_lat", "advLat", "position.lat", "location.lat", "coords.lat", "gps.lat"
       ]);
       const lon = extractCoord(node, [
-        "lon", "lng", "longitude", "position.lon", "position.lng", "location.lon", "location.lng", "coords.lon", "coords.lng", "gps.lon", "gps.lng"
+        "lon", "lng", "longitude", "adv_lon", "advLon", "position.lon", "position.lng", "location.lon", "location.lng", "coords.lon", "coords.lng", "gps.lon", "gps.lng"
       ]);
 
       if (!Number.isFinite(lat) || !Number.isFinite(lon)) return null;
@@ -454,14 +448,16 @@ permalink: /meshcore-map/
       const name = String(
         node.name ||
         node.nodeName ||
+        node.adv_name ||
         node.callsign ||
         node.displayName ||
         node.id ||
+        node.public_key ||
         node.publicKey ||
         `Node ${index + 1}`
       );
-      const id = String(node.id || node.publicKey || node.key || node.hash || `${name}-${lat}-${lon}`);
-      const updatedRaw = node.updatedAt || node.updated_at || node.lastSeen || node.last_seen || node.timestamp || node.ts || null;
+      const id = String(node.id || node.public_key || node.publicKey || node.key || node.hash || `${name}-${lat}-${lon}`);
+      const updatedRaw = node.updatedAt || node.updated_at || node.updated_date || node.lastSeen || node.last_seen || node.last_advert || node.timestamp || node.ts || null;
 
       return {
         raw: node,
@@ -470,10 +466,10 @@ permalink: /meshcore-map/
         lat,
         lon,
         role,
-        region: node.region || node.band || node.preset || node.country || "—",
+        region: node.region || node.band || node.preset || node.country || node.source || "—",
         hops: node.hops ?? node.distanceHops ?? node.hop_count ?? "—",
-        frequency: node.frequency || node.freq || node.channel || "—",
-        spreadingFactor: node.spreadingFactor || node.sf || "—",
+        frequency: node.frequency || node.freq || node.channel || node.params?.freq || "—",
+        spreadingFactor: node.spreadingFactor || node.sf || node.params?.sf || "—",
         updatedRaw,
         updatedText: formatTimestamp(updatedRaw),
         searchText: [
@@ -483,7 +479,9 @@ permalink: /meshcore-map/
           node.region,
           node.band,
           node.country,
+          node.public_key,
           node.publicKey,
+          node.adv_name,
           node.callsign
         ].filter(Boolean).join(" ").toLowerCase()
       };

@@ -26,8 +26,6 @@
         <span class="nav-separator">|</span>
         <a href="{{ '/mesh-radio' | relative_url }}">Mesh Radio</a>
         <span class="nav-separator">|</span>
-        <a href="https://live.wo0f.com/">MeshCore Map</a>
-        <span class="nav-separator">|</span>
         <a href="{{ '/vhf-uhf-radio' | relative_url }}">VHF/UHF Radio</a>
         <span class="nav-separator">|</span>
         <a href="{{ '/hf-radio' | relative_url }}">HF Radio</a>
@@ -63,7 +61,8 @@
     </div>
     {% endif %}
 
-    <!-- HERO -->
+    <!-- HERO (HOME ONLY) -->
+    {% if page.url == "/" %}
     <header class="hero">
       <h1 class="hero-title">WOØF</h1>
       <p class="hero-subtitle">Amateur - GMRS - Mesh Radio</p>
@@ -85,6 +84,7 @@
         </div>
       </div>
     </header>
+    {% endif %}
 
     <!-- PAGE CONTENT -->
     <main>

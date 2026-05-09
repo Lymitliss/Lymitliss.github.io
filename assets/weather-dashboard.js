@@ -3,10 +3,11 @@
     lat: 47.755,
     lon: -122.341,
     locationName: "Shoreline, WA",
-    refreshMs: 300000
+    refreshMs: 300000,
+    nwsProxyBase: "https://analyzer.wo0f.com/weather-api",
+    nwsOrigin: "https://api.weather.gov"
   };
 
-  const NWS_BASE = "https://api.weather.gov";
   const SWPC_KP = "https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json";
   const SWPC_FLUX = "https://services.swpc.noaa.gov/products/10cm-flux-30-day.json";
   const SWPC_SCALES = "https://services.swpc.noaa.gov/products/noaa-scales.json";
@@ -104,11 +105,24 @@
     el.className = `weather-badge ${tone || ""}`.trim();
   }
 
-  async function fetchJson(url) {
+  function proxifyNwsUrl(url) {
+    if (!url) return null;
+    if (url.startsWith(CONFIG.nwsProxyBase)) return url;
+    if (url.startsWith(CONFIG.nwsOrigin)) {
+      return CONFIG.nwsProxyBase + url.substring(CONFIG.nwsOrigin.length);
+    }
+    if (url.startsWith("/")) {
+      return CONFIG.nwsProxyBase + url;
+    }
+    return url;
+  }
+
+  async function fetchJson(url, extraHeaders = {}) {
     const response = await fetch(`${url}${url.includes("?") ? "&" : "?"}t=${Date.now()}`, {
       cache: "no-store",
       headers: {
-        Accept: "application/geo+json, application/json"
+        Accept: "application/geo+json, application/json",
+        ...extraHeaders
       }
     });
 
@@ -170,12 +184,12 @@
   }
 
   async function loadWeather() {
-    const pointUrl = `${NWS_BASE}/points/${CONFIG.lat},${CONFIG.lon}`;
+    const pointUrl = proxifyNwsUrl(`${CONFIG.nwsOrigin}/points/${CONFIG.lat},${CONFIG.lon}`);
     const pointData = await fetchJson(pointUrl);
 
-    const forecastHourlyUrl = pointData?.properties?.forecastHourly;
-    const stationsUrl = pointData?.properties?.observationStations;
-    const alertsUrl = `${NWS_BASE}/alerts/active?point=${CONFIG.lat},${CONFIG.lon}`;
+    const forecastHourlyUrl = proxifyNwsUrl(pointData?.properties?.forecastHourly);
+    const stationsUrl = proxifyNwsUrl(pointData?.properties?.observationStations);
+    const alertsUrl = proxifyNwsUrl(`${CONFIG.nwsOrigin}/alerts/active?point=${CONFIG.lat},${CONFIG.lon}`);
 
     const [hourlyData, stationsData, alertsData] = await Promise.all([
       fetchJson(forecastHourlyUrl),
@@ -196,11 +210,12 @@
     let windDir = null;
     let updatedLabel = "Using hourly forecast fallback";
 
-    const firstStation = stationsData?.features?.[0]?.id;
+    const firstStation = stationsData?.observationStations?.[0] || stationsData?.features?.[0]?.id;
 
     if (firstStation) {
       try {
-        const latestObs = await fetchJson(`${firstStation}/observations/latest`);
+        const latestObsUrl = proxifyNwsUrl(`${firstStation}/observations/latest`);
+        const latestObs = await fetchJson(latestObsUrl);
         const obs = latestObs?.properties || {};
 
         const obsTempF = cToF(safeNumber(obs?.temperature?.value));

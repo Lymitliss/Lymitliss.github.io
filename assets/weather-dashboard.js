@@ -117,8 +117,19 @@
     return url;
   }
 
+  function shouldAddCacheBuster(url) {
+    return !url.includes(CONFIG.nwsProxyBase);
+  }
+
+  function withOptionalCacheBuster(url) {
+    if (!shouldAddCacheBuster(url)) return url;
+    return `${url}${url.includes("?") ? "&" : "?"}t=${Date.now()}`;
+  }
+
   async function fetchJson(url, extraHeaders = {}) {
-    const response = await fetch(`${url}${url.includes("?") ? "&" : "?"}t=${Date.now()}`, {
+    const finalUrl = withOptionalCacheBuster(url);
+
+    const response = await fetch(finalUrl, {
       cache: "no-store",
       headers: {
         Accept: "application/geo+json, application/json",

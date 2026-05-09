@@ -306,4 +306,4 @@ permalink: /weather/
   </div>
 </div>
 
-<script src="{{ '/assets/weather-dashboard.js?v=2' | relative_url }}"></script>
+<script src="{{ '/assets/weather-dashboard.js?v=3' | relative_url }}"></script>

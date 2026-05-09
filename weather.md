@@ -166,8 +166,8 @@ permalink: /weather/
     and radio-focused operating notes in one place.
   </p>
   <p>
-    Data is pulled from official NOAA / NWS and NOAA SWPC sources where possible, with a live lightning map included
-    for storm awareness. Weather, alert, and solar data refresh automatically while the page is open.
+    Weather and alerts are pulled through the WOØF droplet proxy, solar data comes from NOAA SWPC, and the page
+    refreshes automatically while it remains open.
   </p>
 </div>
 
@@ -306,4 +306,4 @@ permalink: /weather/
   </div>
 </div>
 
-<script src="{{ '/assets/weather-dashboard.js' | relative_url }}"></script>
+<script src="{{ '/assets/weather-dashboard.js?v=2' | relative_url }}"></script>

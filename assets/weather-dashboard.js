@@ -97,12 +97,6 @@
     return scales[String(keys[0])];
   }
 
-  function classifyBadge(kind) {
-    const badge = byId(kind);
-    if (!badge) return;
-    badge.className = "weather-badge";
-  }
-
   function applyBadge(id, label, tone) {
     const el = byId(id);
     if (!el) return;
@@ -119,10 +113,60 @@
     });
 
     if (!response.ok) {
-      throw new Error(`Fetch failed: ${url}`);
+      throw new Error(`Fetch failed: ${url} (${response.status})`);
     }
 
     return response.json();
+  }
+
+  function renderHourly(periods) {
+    const hourlyPeriods = (periods || []).slice(0, 6);
+
+    if (!hourlyPeriods.length) {
+      setHtml("hourly-list", "<li>Hourly forecast unavailable right now.</li>");
+      return;
+    }
+
+    setHtml(
+      "hourly-list",
+      hourlyPeriods
+        .map((period) => `
+          <li>
+            <strong>${period.startTime ? new Date(period.startTime).toLocaleString("en-US", {
+              timeZone: "America/Los_Angeles",
+              hour: "numeric",
+              minute: "2-digit"
+            }) : "Hour"}</strong><br>
+            ${period.temperature}°${period.temperatureUnit} • ${period.shortForecast}<br>
+            <span class="weather-small-note">Precip: ${period.probabilityOfPrecipitation?.value ?? 0}% • Wind: ${period.windSpeed || "N/A"}</span>
+          </li>
+        `)
+        .join("")
+    );
+  }
+
+  function renderAlerts(alerts) {
+    if (!alerts.length) {
+      setHtml("alerts-list", "<li>No active NOAA alerts for the Shoreline / Seattle point right now.</li>");
+      applyBadge("alerts-badge", "No Active Alerts", "good");
+      return;
+    }
+
+    setHtml(
+      "alerts-list",
+      alerts.slice(0, 5).map((feature) => {
+        const props = feature.properties || {};
+        return `
+          <li>
+            <span class="weather-alert-event">${props.event || "Alert"}</span>
+            <span class="weather-alert-meta">${props.severity || "Severity unavailable"} • ${props.urgency || "Urgency unavailable"}</span>
+            <span class="weather-small-note">${props.headline || props.description || ""}</span>
+          </li>
+        `;
+      }).join("")
+    );
+
+    applyBadge("alerts-badge", `${alerts.length} Active`, alerts.length >= 2 ? "poor" : "fair");
   }
 
   async function loadWeather() {
@@ -139,72 +183,57 @@
       fetchJson(alertsUrl)
     ]);
 
-    const firstStation = stationsData?.features?.[0]?.id;
-    const latestObs = firstStation ? await fetchJson(`${firstStation}/observations/latest`) : null;
+    const hourlyPeriods = hourlyData?.properties?.periods || [];
+    renderHourly(hourlyPeriods);
 
-    const obs = latestObs?.properties || {};
-    const tempF = cToF(safeNumber(obs?.temperature?.value));
-    const humidity = safeNumber(obs?.relativeHumidity?.value);
-    const windMph = mpsToMph(safeNumber(obs?.windSpeed?.value));
-    const windDir = safeNumber(obs?.windDirection?.value);
-    const condition = obs?.textDescription || hourlyData?.properties?.periods?.[0]?.shortForecast || "Unavailable";
-    const timestamp = obs?.timestamp;
+    const alerts = alertsData?.features || [];
+    renderAlerts(alerts);
+
+    let condition = hourlyPeriods[0]?.shortForecast || "Unavailable";
+    let tempF = hourlyPeriods[0]?.temperature ?? null;
+    let humidity = null;
+    let windMph = null;
+    let windDir = null;
+    let updatedLabel = "Using hourly forecast fallback";
+
+    const firstStation = stationsData?.features?.[0]?.id;
+
+    if (firstStation) {
+      try {
+        const latestObs = await fetchJson(`${firstStation}/observations/latest`);
+        const obs = latestObs?.properties || {};
+
+        const obsTempF = cToF(safeNumber(obs?.temperature?.value));
+        const obsHumidity = safeNumber(obs?.relativeHumidity?.value);
+        const obsWindMph = mpsToMph(safeNumber(obs?.windSpeed?.value));
+        const obsWindDir = safeNumber(obs?.windDirection?.value);
+        const obsCondition = obs?.textDescription;
+        const obsTimestamp = obs?.timestamp;
+
+        if (obsTempF != null) tempF = obsTempF;
+        if (obsHumidity != null) humidity = obsHumidity;
+        if (obsWindMph != null) windMph = obsWindMph;
+        if (obsWindDir != null) windDir = obsWindDir;
+        if (obsCondition) condition = obsCondition;
+        if (obsTimestamp) updatedLabel = `Nearest NOAA observation • ${isoToLocal(obsTimestamp)}`;
+      } catch (obsError) {
+        console.warn("Latest observation fetch failed, using forecast fallback:", obsError);
+      }
+    }
 
     setText("wx-temp", tempF == null ? "Unavailable" : `${Math.round(tempF)}°F`);
     setText("wx-humidity", humidity == null ? "Unavailable" : `${Math.round(humidity)}%`);
     setText("wx-wind", windMph == null ? "Unavailable" : `${Math.round(windMph)} mph ${cardinal(windDir)}`);
     setText("wx-condition", condition);
-    setText("wx-updated", `Nearest NOAA observation • ${isoToLocal(timestamp)}`);
+    setText("wx-updated", updatedLabel);
 
     const weatherTone = /storm|thunder|rain|showers|snow|wind/i.test(condition)
       ? "fair"
       : /sun|clear|fair|partly cloudy|mostly sunny/i.test(condition)
         ? "good"
         : "fair";
+
     applyBadge("wx-status-badge", CONFIG.locationName, weatherTone);
-
-    const hourlyPeriods = (hourlyData?.properties?.periods || []).slice(0, 6);
-    if (!hourlyPeriods.length) {
-      setHtml("hourly-list", "<li>Hourly forecast unavailable right now.</li>");
-    } else {
-      setHtml(
-        "hourly-list",
-        hourlyPeriods
-          .map((period) => `
-            <li>
-              <strong>${period.startTime ? new Date(period.startTime).toLocaleString("en-US", {
-                timeZone: "America/Los_Angeles",
-                hour: "numeric",
-                minute: "2-digit"
-              }) : "Hour"}</strong><br>
-              ${period.temperature}°${period.temperatureUnit} • ${period.shortForecast}<br>
-              <span class="weather-small-note">Precip: ${period.probabilityOfPrecipitation?.value ?? 0}% • Wind: ${period.windSpeed || "N/A"}</span>
-            </li>
-          `)
-          .join("")
-      );
-    }
-
-    const alerts = alertsData?.features || [];
-    if (!alerts.length) {
-      setHtml("alerts-list", "<li>No active NOAA alerts for the Shoreline / Seattle point right now.</li>");
-      applyBadge("alerts-badge", "No Active Alerts", "good");
-    } else {
-      setHtml(
-        "alerts-list",
-        alerts.slice(0, 5).map((feature) => {
-          const props = feature.properties || {};
-          return `
-            <li>
-              <span class="weather-alert-event">${props.event || "Alert"}</span>
-              <span class="weather-alert-meta">${props.severity || "Severity unavailable"} • ${props.urgency || "Urgency unavailable"}</span>
-              <span class="weather-small-note">${props.headline || props.description || ""}</span>
-            </li>
-          `;
-        }).join("")
-      );
-      applyBadge("alerts-badge", `${alerts.length} Active`, alerts.length >= 2 ? "poor" : "fair");
-    }
 
     return {
       condition,
@@ -258,19 +287,21 @@
   }
 
   function buildNotes(weather, solar) {
-    const alerts = weather.alerts || [];
-    const windy = (weather.windMph || 0) >= 15;
-    const wet = /rain|showers|storm|snow|thunder/i.test(weather.condition || "");
-    const strongSolar = solar.flux >= 130 && solar.kp <= 3 && solar.rScale <= 1;
-    const roughSolar = solar.kp >= 5 || solar.rScale >= 2;
+    const alerts = weather?.alerts || [];
+    const windy = (weather?.windMph || 0) >= 15;
+    const wet = /rain|showers|storm|snow|thunder/i.test(weather?.condition || "");
+    const strongSolar = solar && solar.flux >= 130 && solar.kp <= 3 && solar.rScale <= 1;
+    const roughSolar = solar && (solar.kp >= 5 || solar.rScale >= 2);
 
     let radioNote = "Conditions are mixed.";
     if (strongSolar) {
       radioNote = "Solar conditions are supportive for upper-HF work, especially 15m, 17m, and 20m, while local weather looks manageable.";
     } else if (roughSolar) {
       radioNote = "Space weather is unsettled enough that HF reliability may swing, especially on upper bands. 20m, 30m, and 40m are the safer places to check first.";
-    } else {
+    } else if (solar) {
       radioNote = "Solar conditions look usable but not exceptional. 17m, 20m, and 30m are likely the most dependable starting points.";
+    } else {
+      radioNote = "Weather data is available, but solar data could not be loaded. Check your HF propagation page for a second opinion.";
     }
 
     let outdoorNote = "Outdoor station work looks generally reasonable right now.";
@@ -301,28 +332,46 @@
     setText("focus-mesh", focusMesh);
   }
 
-  async function initDashboard() {
-    try {
-      const [weather, solar] = await Promise.all([
-        loadWeather(),
-        loadSolar()
-      ]);
+  function setWeatherFailure() {
+    applyBadge("wx-status-badge", "Unavailable", "poor");
+    applyBadge("alerts-badge", "Unavailable", "poor");
+    setText("wx-temp", "Unavailable");
+    setText("wx-humidity", "Unavailable");
+    setText("wx-wind", "Unavailable");
+    setText("wx-condition", "Unavailable");
+    setText("wx-updated", "Weather data unavailable right now.");
+    setHtml("hourly-list", "<li>Hourly forecast unavailable right now.</li>");
+    setHtml("alerts-list", "<li>Active alert data unavailable right now.</li>");
+  }
 
-      buildNotes(weather, solar);
+  function setSolarFailure() {
+    applyBadge("solar-badge", "Unavailable", "poor");
+    setText("solar-kp", "Unavailable");
+    setText("solar-flux", "Unavailable");
+    setText("solar-scale", "Unavailable");
+    setText("solar-hf", "Unavailable");
+    setText("solar-updated", "NOAA SWPC data unavailable right now.");
+  }
+
+  async function initDashboard() {
+    let weatherResult = null;
+    let solarResult = null;
+
+    try {
+      weatherResult = await loadWeather();
     } catch (error) {
-      console.error("Weather dashboard load failed:", error);
-      setText("radio-note", "Weather dashboard data could not be fully loaded right now.");
-      setText("outdoor-note", "Check the official forecast and alerts links below while data reload is unavailable.");
-      applyBadge("wx-status-badge", "Unavailable", "poor");
-      applyBadge("alerts-badge", "Unavailable", "poor");
-      applyBadge("solar-badge", "Unavailable", "poor");
-      setHtml("hourly-list", "<li>Hourly forecast unavailable right now.</li>");
-      setHtml("alerts-list", "<li>Active alert data unavailable right now.</li>");
-      setText("focus-weather", "Weather focus: Use the official NOAA links below while dashboard data is unavailable.");
-      setText("focus-hf", "HF focus: Check your dedicated HF propagation page for current band guidance.");
-      setText("focus-vhf", "VHF/UHF focus: Local storm and wind awareness remain the biggest operational factors.");
-      setText("focus-mesh", "Mesh focus: Verify local conditions before doing outdoor or rooftop node work.");
+      console.error("Weather load failed:", error);
+      setWeatherFailure();
     }
+
+    try {
+      solarResult = await loadSolar();
+    } catch (error) {
+      console.error("Solar load failed:", error);
+      setSolarFailure();
+    }
+
+    buildNotes(weatherResult, solarResult);
   }
 
   if (document.readyState === "loading") {

@@ -50,21 +50,23 @@
 
     <!-- HOME BANNER (ONLY ON HOME) -->
     {% if page.url == "/" %}
-    <div class="home-banner">
-      <div class="home-banner-line" style="display: flex; align-items: center; gap: 12px;">
-        Into Meshcore or Meshtastic? Visit me at the
-        <a href="https://pugetmesh.org/" target="_blank" rel="noopener">
-          PugetMesh Discord
-        </a>
-        <img src="{{ '/assets/ChatGPT Image May 9, 2026, 06_44_49 PM.png' | relative_url }}" alt="PugetMesh QR code" style="height: 160px; width: auto; margin-left: auto; flex-shrink: 0; border-radius: 6px;">
+    <div class="home-banner" style="display: flex; align-items: flex-start; justify-content: space-between; gap: 24px;">
+      <div style="display: flex; flex-direction: column; justify-content: flex-start; gap: 22px; flex: 1; padding-top: 6px;">
+        <div class="home-banner-line" style="margin: 0;">
+          Into Meshcore or Meshtastic? Visit me at the
+          <a href="https://pugetmesh.org/" target="_blank" rel="noopener">
+            Puget Mesh Discord →
+          </a>
+        </div>
+        <div class="home-banner-line home-banner-line-secondary" style="margin: 0;">
+          Check out my
+          <a href="{{ '/sdr' | relative_url }}" class="home-banner-link-blue">
+            OpenWebRX SDR stream
+          </a>
+          and let me know how it's working!
+        </div>
       </div>
-      <div class="home-banner-line home-banner-line-secondary">
-        Check out my
-        <a href="{{ '/sdr' | relative_url }}" class="home-banner-link-blue">
-          OpenWebRX SDR stream
-        </a>
-        and let me know how it's working!
-      </div>
+      <img src="{{ '/assets/ChatGPT Image May 9, 2026, 06_44_49 PM.png' | relative_url }}" alt="PugetMesh QR code" style="height: 160px; width: auto; flex-shrink: 0; border-radius: 6px;">
     </div>
     {% endif %}
 

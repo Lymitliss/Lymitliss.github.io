@@ -259,7 +259,7 @@ permalink: /mesh-radio/
 
   <p><strong>Tech / Automation</strong></p>
   <ul class="station-list">
-    <li><span class="station-label">#bot:</span> Handy for bot and automation experiments.</li>
+    <li><span class="station-label">#bot:</span> Home to HowlBot, a very helpful bot that replies to a long list of specific commands.</li>
     <li><span class="station-label">#dev:</span> Development, testing, and software-related MeshCore discussion.</li>
     <li><span class="station-label">#tech:</span> Technology discussion beyond radio-specific topics.</li>
   </ul>

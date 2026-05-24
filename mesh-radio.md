@@ -235,32 +235,50 @@ permalink: /mesh-radio/
 
 <div class="station-card">
   <h3 class="mesh-title">Favorite MeshCore Hashtag Channels</h3>
+
+  <p><strong>Regional / Local</strong></p>
+  <ul class="station-list">
+    <li><span class="station-label">#seattle:</span> Useful for city and metro-area discussion.</li>
+    <li><span class="station-label">#northend:</span> Useful for north-end local context and regional coordination.</li>
+    <li><span class="station-label">#eastside:</span> Useful for Eastside-area local context and regional coordination.</li>
+    <li><span class="station-label">#snoco:</span> Useful for Snohomish County discussion and north-region coordination.</li>
+    <li><span class="station-label">#pierce:</span> Useful for Pierce County discussion and local coordination.</li>
+    <li><span class="station-label">#olympia:</span> Useful for Olympia-area discussion and south Sound coordination.</li>
+    <li><span class="station-label">#capitolhill:</span> Capitol Hill area discussion and local context.</li>
+  </ul>
+
+  <p><strong>Radio / Mesh / Emergency</strong></p>
+  <ul class="station-list">
+    <li><span class="station-label">#mesh:</span> General mesh networking discussion and coordination.</li>
+    <li><span class="station-label">#hamradio:</span> Good for broader amateur-radio mesh conversation.</li>
+    <li><span class="station-label">#gmrs:</span> A natural crossover topic for local radio operators.</li>
+    <li><span class="station-label">#emcomm:</span> Emergency communications and preparedness discussion.</li>
+    <li><span class="station-label">#emergency:</span> Emergency-focused coordination and urgent situational traffic.</li>
+    <li><span class="station-label">#weather:</span> Weather observations, alerts, and radio-relevant conditions.</li>
+  </ul>
+
+  <p><strong>Tech / Automation</strong></p>
   <ul class="station-list">
     <li><span class="station-label">#bot:</span> Handy for bot and automation experiments.</li>
     <li><span class="station-label">#dev:</span> Development, testing, and software-related MeshCore discussion.</li>
-    <li><span class="station-label">#eastside:</span> Useful for Eastside-area local context and regional coordination.</li>
-    <li><span class="station-label">#emergency:</span> Emergency-focused coordination and urgent situational traffic.</li>
-    <li><span class="station-label">#hamradio:</span> Good for broader amateur-radio mesh conversation.</li>
-    <li><span class="station-label">#mesh:</span> General mesh networking discussion and coordination.</li>
-    <li><span class="station-label">#olympia:</span> Useful for Olympia-area discussion and south Sound coordination.</li>
-    <li><span class="station-label">#pierce:</span> Useful for Pierce County discussion and local coordination.</li>
-    <li><span class="station-label">#seattle:</span> Useful for city and metro-area discussion.</li>
-    <li><span class="station-label">#snoco:</span> Useful for Snohomish County discussion and north-region coordination.</li>
-    <li><span class="station-label">#sounders:</span> Seattle Sounders discussion.</li>
-    <li><span class="station-label">#emcomm:</span> Emergency communications and preparedness discussion.</li>
-    <li><span class="station-label">#weather:</span> Weather observations, alerts, and radio-relevant conditions.</li>
+    <li><span class="station-label">#tech:</span> Technology discussion beyond radio-specific topics.</li>
+  </ul>
+
+  <p><strong>Community Interests</strong></p>
+  <ul class="station-list">
     <li><span class="station-label">#books:</span> Book discussion and recommendations.</li>
     <li><span class="station-label">#cars:</span> Car and vehicle discussion.</li>
     <li><span class="station-label">#music:</span> Music discussion.</li>
-    <li><span class="station-label">#capitolhill:</span> Capitol Hill area discussion and local context.</li>
-    <li><span class="station-label">#tech:</span> Technology discussion beyond radio-specific topics.</li>
     <li><span class="station-label">#transit:</span> Transit, commuting, and transportation discussion.</li>
+  </ul>
+
+  <p><strong>Seattle Sports</strong></p>
+  <ul class="station-list">
+    <li><span class="station-label">#sounders:</span> Seattle Sounders discussion.</li>
     <li><span class="station-label">#huskies:</span> Washington Huskies discussion.</li>
     <li><span class="station-label">#kraken:</span> Seattle Kraken discussion.</li>
     <li><span class="station-label">#mariners:</span> Seattle Mariners discussion.</li>
     <li><span class="station-label">#seahawks:</span> Seattle Seahawks discussion.</li>
-    <li><span class="station-label">#gmrs:</span> A natural crossover topic for local radio operators.</li>
-    <li><span class="station-label">#northend:</span> Useful for north-end local context and regional coordination.</li>
   </ul>
 </div>
 

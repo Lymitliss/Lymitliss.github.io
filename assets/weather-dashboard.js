@@ -431,13 +431,15 @@
   }
 
   function setWeatherFailure() {
-    applyBadge("wx-status-badge", "Unavailable", "poor");
+    const location = getCurrentLocation();
+
+    applyBadge("wx-status-badge", `${location.name} Unavailable`, "poor");
     applyBadge("alerts-badge", "Unavailable", "poor");
     setText("wx-temp", "Unavailable");
     setText("wx-humidity", "Unavailable");
     setText("wx-wind", "Unavailable");
     setText("wx-condition", "Unavailable");
-    setText("wx-updated", "Weather data unavailable right now.");
+    setText("wx-updated", `Weather data unavailable for ${location.name} right now.`);
     setHtml("hourly-list", "<li>Hourly forecast unavailable right now.</li>");
     setHtml("alerts-list", "<li>Active alert data unavailable right now.</li>");
   }

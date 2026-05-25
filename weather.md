@@ -311,7 +311,7 @@ permalink: /weather/
     <ul class="weather-links-list">
       <li>
         <a id="nws-point-link" href="https://forecast.weather.gov/MapClick.php?lat=47.755&lon=-122.341" target="_blank" rel="noopener" class="accent-link">
-          Official NWS point forecast
+          Official NWS point forecast for Shoreline, WA
         </a>
       </li>
       <li>
@@ -343,4 +343,4 @@ permalink: /weather/
   </div>
 </div>
 
-<script src="{{ '/assets/weather-dashboard.js?v=4' | relative_url }}"></script>
+<script src="{{ '/assets/weather-dashboard.js?v=6' | relative_url }}"></script>

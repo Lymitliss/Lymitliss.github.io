@@ -1,8 +1,17 @@
 (() => {
+  const LOCATIONS = {
+    shoreline: { name: "Shoreline, WA", lat: 47.755, lon: -122.341, mapZoom: "6.7" },
+    seattle: { name: "Seattle, WA", lat: 47.6062, lon: -122.3321, mapZoom: "6.7" },
+    everett: { name: "Everett, WA", lat: 47.9790, lon: -122.2021, mapZoom: "6.7" },
+    bellevue: { name: "Bellevue, WA", lat: 47.6101, lon: -122.2015, mapZoom: "6.7" },
+    tacoma: { name: "Tacoma, WA", lat: 47.2529, lon: -122.4443, mapZoom: "6.7" },
+    olympia: { name: "Olympia, WA", lat: 47.0379, lon: -122.9007, mapZoom: "6.7" },
+    bremerton: { name: "Bremerton, WA", lat: 47.5673, lon: -122.6326, mapZoom: "6.7" }
+  };
+
   const CONFIG = {
-    lat: 47.755,
-    lon: -122.341,
-    locationName: "Shoreline, WA",
+    defaultLocationKey: "shoreline",
+    currentLocationKey: "shoreline",
     refreshMs: 300000,
     nwsProxyBase: "https://analyzer.wo0f.com/weather-api",
     nwsOrigin: "https://api.weather.gov"
@@ -14,6 +23,10 @@
 
   function byId(id) {
     return document.getElementById(id);
+  }
+
+  function getCurrentLocation() {
+    return LOCATIONS[CONFIG.currentLocationKey] || LOCATIONS[CONFIG.defaultLocationKey];
   }
 
   function setText(id, value) {
@@ -144,6 +157,42 @@
     return response.json();
   }
 
+  function setLoadingState() {
+    applyBadge("wx-status-badge", "Loading", "");
+    applyBadge("alerts-badge", "Loading", "");
+    setText("wx-temp", "Loading...");
+    setText("wx-humidity", "Loading...");
+    setText("wx-wind", "Loading...");
+    setText("wx-condition", "Loading...");
+    setText("wx-updated", "Loading latest observation...");
+    setHtml("hourly-list", "<li>Loading hourly forecast...</li>");
+    setHtml("alerts-list", "<li>Loading active alerts...</li>");
+    setText("radio-note", "Building current local weather and solar interpretation...");
+    setText("outdoor-note", "Loading outdoor/station note...");
+    setText("focus-weather", "Loading weather-related operating guidance...");
+    setText("focus-hf", "Loading HF-related operating guidance...");
+    setText("focus-vhf", "Loading VHF/UHF-related operating guidance...");
+    setText("focus-mesh", "Loading mesh/outdoor guidance...");
+  }
+
+  function updateLocationUi() {
+    const location = getCurrentLocation();
+
+    setText("selected-location-note", `Currently showing ${location.name}.`);
+
+    const lightningMap = byId("lightning-map");
+    if (lightningMap) {
+      lightningMap.src = `https://map.blitzortung.org/#${location.mapZoom}/${location.lat}/${location.lon}`;
+      lightningMap.title = `Live lightning map centered near ${location.name}`;
+    }
+
+    const nwsPointLink = byId("nws-point-link");
+    if (nwsPointLink) {
+      nwsPointLink.href = `https://forecast.weather.gov/MapClick.php?lat=${location.lat}&lon=${location.lon}`;
+      nwsPointLink.textContent = `Official NWS point forecast for ${location.name}`;
+    }
+  }
+
   function renderHourly(periods) {
     const hourlyPeriods = (periods || []).slice(0, 6);
 
@@ -172,7 +221,7 @@
 
   function renderAlerts(alerts) {
     if (!alerts.length) {
-      setHtml("alerts-list", "<li>No active NOAA alerts for the Shoreline / Seattle point right now.</li>");
+      setHtml("alerts-list", "<li>No active NOAA alerts for the selected location right now.</li>");
       applyBadge("alerts-badge", "No Active Alerts", "good");
       return;
     }
@@ -195,12 +244,14 @@
   }
 
   async function loadWeather() {
-    const pointUrl = proxifyNwsUrl(`${CONFIG.nwsOrigin}/points/${CONFIG.lat},${CONFIG.lon}`);
+    const location = getCurrentLocation();
+
+    const pointUrl = proxifyNwsUrl(`${CONFIG.nwsOrigin}/points/${location.lat},${location.lon}`);
     const pointData = await fetchJson(pointUrl);
 
     const forecastHourlyUrl = proxifyNwsUrl(pointData?.properties?.forecastHourly);
     const stationsUrl = proxifyNwsUrl(pointData?.properties?.observationStations);
-    const alertsUrl = proxifyNwsUrl(`${CONFIG.nwsOrigin}/alerts/active?point=${CONFIG.lat},${CONFIG.lon}`);
+    const alertsUrl = proxifyNwsUrl(`${CONFIG.nwsOrigin}/alerts/active?point=${location.lat},${location.lon}`);
 
     const [hourlyData, stationsData, alertsData] = await Promise.all([
       fetchJson(forecastHourlyUrl),
@@ -259,7 +310,7 @@
         ? "good"
         : "fair";
 
-    applyBadge("wx-status-badge", CONFIG.locationName, weatherTone);
+    applyBadge("wx-status-badge", location.name, weatherTone);
 
     return {
       condition,
@@ -267,7 +318,8 @@
       humidity,
       windMph,
       hourlyPeriods,
-      alerts
+      alerts,
+      locationName: location.name
     };
   }
 
@@ -313,6 +365,7 @@
   }
 
   function buildNotes(weather, solar) {
+    const location = getCurrentLocation();
     const alerts = weather?.alerts || [];
     const windy = (weather?.windMph || 0) >= 15;
     const wet = /rain|showers|storm|snow|thunder/i.test(weather?.condition || "");
@@ -321,30 +374,32 @@
 
     let radioNote = "Conditions are mixed.";
     if (strongSolar) {
-      radioNote = "Solar conditions are supportive for upper-HF work, especially 15m, 17m, and 20m, while local weather looks manageable.";
+      radioNote = `Solar conditions are supportive for upper-HF work, especially 15m, 17m, and 20m. Local weather is currently based on ${location.name}.`;
     } else if (roughSolar) {
-      radioNote = "Space weather is unsettled enough that HF reliability may swing, especially on upper bands. 20m, 30m, and 40m are the safer places to check first.";
+      radioNote = `Space weather is unsettled enough that HF reliability may swing, especially on upper bands. Local weather is currently based on ${location.name}.`;
     } else if (solar) {
-      radioNote = "Solar conditions look usable but not exceptional. 17m, 20m, and 30m are likely the most dependable starting points.";
+      radioNote = `Solar conditions look usable but not exceptional. 17m, 20m, and 30m are likely the most dependable starting points. Local weather is currently based on ${location.name}.`;
     } else {
-      radioNote = "Weather data is available, but solar data could not be loaded. Check your HF propagation page for a second opinion.";
+      radioNote = `Weather data is available for ${location.name}, but solar data could not be loaded. Check your HF propagation page for a second opinion.`;
     }
 
     let outdoorNote = "Outdoor station work looks generally reasonable right now.";
     if (alerts.length) {
-      outdoorNote = "There are active NOAA alerts for your local point. Treat antenna work, portable setup, and rooftop tasks as conditional until the alert picture is clear.";
+      outdoorNote = `There are active NOAA alerts for ${location.name}. Treat antenna work, portable setup, and rooftop tasks as conditional until the alert picture is clear.`;
     } else if (wet && windy) {
-      outdoorNote = "Local weather suggests caution for outdoor radio or antenna work due to wind and precipitation.";
+      outdoorNote = `Local weather around ${location.name} suggests caution for outdoor radio or antenna work due to wind and precipitation.`;
     } else if (wet) {
-      outdoorNote = "Conditions are damp enough that portable or outdoor work may be less pleasant even if not dangerous.";
+      outdoorNote = `Conditions around ${location.name} are damp enough that portable or outdoor work may be less pleasant even if not dangerous.`;
     } else if (windy) {
-      outdoorNote = "Wind is high enough that elevated or ladder-based antenna work deserves extra caution.";
+      outdoorNote = `Wind around ${location.name} is high enough that elevated or ladder-based antenna work deserves extra caution.`;
+    } else {
+      outdoorNote = `Outdoor station work around ${location.name} looks generally reasonable right now.`;
     }
 
-    let focusWeather = "Weather focus: Use current conditions, alerts, and the lightning map together before doing outdoor antenna or portable-radio work.";
+    let focusWeather = `Weather focus: Use current conditions, alerts, and the lightning map for ${location.name} before doing outdoor antenna or portable-radio work.`;
     let focusHf = "HF focus: Start with 17m/20m if conditions are mixed; move upward if flux is strong and Kp stays low.";
     let focusVhf = "VHF/UHF focus: Local surface weather matters more than solar weather here, but storm activity can affect portable operation and safety.";
-    let focusMesh = "Mesh focus: Lightning, wind, and active local alerts matter most for rooftop nodes, masts, and any outdoor troubleshooting.";
+    let focusMesh = `Mesh focus: Lightning, wind, and active local alerts near ${location.name} matter most for rooftop nodes, masts, and any outdoor troubleshooting.`;
 
     if (roughSolar) {
       focusHf = "HF focus: With disturbed space weather, prioritize 20m, 30m, and 40m before spending much time on the upper bands.";
@@ -383,6 +438,8 @@
     let weatherResult = null;
     let solarResult = null;
 
+    updateLocationUi();
+
     try {
       weatherResult = await loadWeather();
     } catch (error) {
@@ -400,9 +457,26 @@
     buildNotes(weatherResult, solarResult);
   }
 
+  function setupLocationSelector() {
+    const select = byId("weather-location-select");
+    if (!select) return;
+
+    select.value = CONFIG.currentLocationKey;
+
+    select.addEventListener("change", () => {
+      CONFIG.currentLocationKey = select.value;
+      setLoadingState();
+      initDashboard();
+    });
+  }
+
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initDashboard);
+    document.addEventListener("DOMContentLoaded", () => {
+      setupLocationSelector();
+      initDashboard();
+    });
   } else {
+    setupLocationSelector();
     initDashboard();
   }
 

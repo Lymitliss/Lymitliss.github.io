@@ -17,6 +17,9 @@
     nwsOrigin: "https://api.weather.gov"
   };
 
+  let refreshTimer = null;
+  let activeRequestId = 0;
+
   const SWPC_KP = "https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json";
   const SWPC_FLUX = "https://services.swpc.noaa.gov/products/10cm-flux-30-day.json";
   const SWPC_SCALES = "https://services.swpc.noaa.gov/products/noaa-scales.json";
@@ -158,13 +161,16 @@
   }
 
   function setLoadingState() {
-    applyBadge("wx-status-badge", "Loading", "");
+    const location = getCurrentLocation();
+
+    applyBadge("wx-status-badge", `Loading ${location.name}`, "");
     applyBadge("alerts-badge", "Loading", "");
+    setText("selected-location-note", `Currently showing ${location.name}.`);
     setText("wx-temp", "Loading...");
     setText("wx-humidity", "Loading...");
     setText("wx-wind", "Loading...");
     setText("wx-condition", "Loading...");
-    setText("wx-updated", "Loading latest observation...");
+    setText("wx-updated", `Loading latest observation for ${location.name}...`);
     setHtml("hourly-list", "<li>Loading hourly forecast...</li>");
     setHtml("alerts-list", "<li>Loading active alerts...</li>");
     setText("radio-note", "Building current local weather and solar interpretation...");
@@ -243,11 +249,13 @@
     applyBadge("alerts-badge", `${alerts.length} Active`, alerts.length >= 2 ? "poor" : "fair");
   }
 
-  async function loadWeather() {
+  async function loadWeather(requestId) {
     const location = getCurrentLocation();
 
     const pointUrl = proxifyNwsUrl(`${CONFIG.nwsOrigin}/points/${location.lat},${location.lon}`);
     const pointData = await fetchJson(pointUrl);
+
+    if (requestId !== activeRequestId) return null;
 
     const forecastHourlyUrl = proxifyNwsUrl(pointData?.properties?.forecastHourly);
     const stationsUrl = proxifyNwsUrl(pointData?.properties?.observationStations);
@@ -258,6 +266,8 @@
       fetchJson(stationsUrl),
       fetchJson(alertsUrl)
     ]);
+
+    if (requestId !== activeRequestId) return null;
 
     const hourlyPeriods = hourlyData?.properties?.periods || [];
     renderHourly(hourlyPeriods);
@@ -278,6 +288,9 @@
       try {
         const latestObsUrl = proxifyNwsUrl(`${firstStation}/observations/latest`);
         const latestObs = await fetchJson(latestObsUrl);
+
+        if (requestId !== activeRequestId) return null;
+
         const obs = latestObs?.properties || {};
 
         const obsTempF = cToF(safeNumber(obs?.temperature?.value));
@@ -297,6 +310,8 @@
         console.warn("Latest observation fetch failed, using forecast fallback:", obsError);
       }
     }
+
+    if (requestId !== activeRequestId) return null;
 
     setText("wx-temp", tempF == null ? "Unavailable" : `${Math.round(tempF)}°F`);
     setText("wx-humidity", humidity == null ? "Unavailable" : `${Math.round(humidity)}%`);
@@ -323,12 +338,14 @@
     };
   }
 
-  async function loadSolar() {
+  async function loadSolar(requestId) {
     const [kpRaw, fluxRaw, scalesRaw] = await Promise.all([
       fetchJson(SWPC_KP),
       fetchJson(SWPC_FLUX),
       fetchJson(SWPC_SCALES)
     ]);
+
+    if (requestId !== activeRequestId) return null;
 
     const kpRows = normalizeRows(kpRaw);
     const fluxRows = normalizeRows(fluxRaw);
@@ -434,27 +451,39 @@
     setText("solar-updated", "NOAA SWPC data unavailable right now.");
   }
 
-  async function initDashboard() {
-    let weatherResult = null;
-    let solarResult = null;
+  async function initDashboard(forceLoading = false) {
+    const requestId = ++activeRequestId;
 
     updateLocationUi();
 
+    if (forceLoading) {
+      setLoadingState();
+    }
+
+    let weatherResult = null;
+    let solarResult = null;
+
     try {
-      weatherResult = await loadWeather();
+      weatherResult = await loadWeather(requestId);
     } catch (error) {
-      console.error("Weather load failed:", error);
-      setWeatherFailure();
+      if (requestId === activeRequestId) {
+        console.error("Weather load failed:", error);
+        setWeatherFailure();
+      }
     }
 
     try {
-      solarResult = await loadSolar();
+      solarResult = await loadSolar(requestId);
     } catch (error) {
-      console.error("Solar load failed:", error);
-      setSolarFailure();
+      if (requestId === activeRequestId) {
+        console.error("Solar load failed:", error);
+        setSolarFailure();
+      }
     }
 
-    buildNotes(weatherResult, solarResult);
+    if (requestId === activeRequestId) {
+      buildNotes(weatherResult, solarResult);
+    }
   }
 
   function setupLocationSelector() {
@@ -465,20 +494,29 @@
 
     select.addEventListener("change", () => {
       CONFIG.currentLocationKey = select.value;
-      setLoadingState();
-      initDashboard();
+      initDashboard(true);
     });
+  }
+
+  function startRefreshTimer() {
+    if (refreshTimer) {
+      clearInterval(refreshTimer);
+    }
+
+    refreshTimer = setInterval(() => {
+      initDashboard(false);
+    }, CONFIG.refreshMs);
+  }
+
+  function start() {
+    setupLocationSelector();
+    initDashboard(true);
+    startRefreshTimer();
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", () => {
-      setupLocationSelector();
-      initDashboard();
-    });
+    document.addEventListener("DOMContentLoaded", start);
   } else {
-    setupLocationSelector();
-    initDashboard();
+    start();
   }
-
-  setInterval(initDashboard, CONFIG.refreshMs);
 })();

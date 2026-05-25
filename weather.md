@@ -17,6 +17,7 @@ permalink: /weather/
   .weather-grid-2 {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
     gap: 15px;
     margin-top: 20px;
   }
@@ -144,6 +145,24 @@ permalink: /weather/
     flex-wrap: wrap;
   }
 
+  .weather-location-select {
+    width: 100%;
+    max-width: 320px;
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #1f2933;
+    background: #111827;
+    color: #e6edf3;
+    font-size: 0.95rem;
+  }
+
+  .weather-location-select:focus {
+    outline: none;
+    border-color: #58a6ff;
+    box-shadow: 0 0 0 2px rgba(88, 166, 255, 0.18);
+  }
+
   @media (max-width: 900px) {
     .weather-grid,
     .weather-grid-2,
@@ -162,12 +181,29 @@ permalink: /weather/
 <div class="station-card">
   <h3>Overview</h3>
   <p>
-    This page combines local Shoreline / Seattle weather, official NOAA alerts, lightning activity, solar weather,
+    This page combines local weather, official NOAA alerts, lightning activity, solar weather,
     and radio-focused operating notes in one place.
   </p>
   <p>
     Weather and alerts are pulled through the WOØF droplet proxy, solar data comes from NOAA SWPC, and the page
     refreshes automatically while it remains open.
+  </p>
+</div>
+
+<div class="station-card">
+  <h3>Location</h3>
+  <label for="weather-location-select" class="weather-small-note">Select dashboard location</label>
+  <select id="weather-location-select" class="weather-location-select">
+    <option value="shoreline" selected>Shoreline, WA</option>
+    <option value="seattle">Seattle, WA</option>
+    <option value="everett">Everett, WA</option>
+    <option value="bellevue">Bellevue, WA</option>
+    <option value="tacoma">Tacoma, WA</option>
+    <option value="olympia">Olympia, WA</option>
+    <option value="bremerton">Bremerton, WA</option>
+  </select>
+  <p class="weather-small-note" id="selected-location-note" style="margin-top: 10px;">
+    Currently showing Shoreline, WA.
   </p>
 </div>
 
@@ -258,8 +294,9 @@ permalink: /weather/
   <h3>Lightning / Storm Activity</h3>
   <div class="weather-iframe-wrap">
     <iframe
-      src="https://map.blitzortung.org/#6.7/47.75/-122.35"
-      title="Live lightning map centered near Seattle"
+      id="lightning-map"
+      src="https://map.blitzortung.org/#6.7/47.755/-122.341"
+      title="Live lightning map"
       loading="lazy"
       referrerpolicy="strict-origin-when-cross-origin"></iframe>
   </div>
@@ -273,8 +310,8 @@ permalink: /weather/
     <h3>Forecast / Radar Links</h3>
     <ul class="weather-links-list">
       <li>
-        <a href="https://forecast.weather.gov/MapClick.php?lat=47.755&lon=-122.341" target="_blank" rel="noopener" class="accent-link">
-          Official NWS point forecast for Shoreline
+        <a id="nws-point-link" href="https://forecast.weather.gov/MapClick.php?lat=47.755&lon=-122.341" target="_blank" rel="noopener" class="accent-link">
+          Official NWS point forecast
         </a>
       </li>
       <li>
@@ -306,4 +343,4 @@ permalink: /weather/
   </div>
 </div>
 
-<script src="{{ '/assets/weather-dashboard.js?v=3' | relative_url }}"></script>
+<script src="{{ '/assets/weather-dashboard.js?v=4' | relative_url }}"></script>

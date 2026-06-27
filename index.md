@@ -1,6 +1,7 @@
 ---
 layout: default
 title: WOØF Amateur, GMRS and Mesh Radio
+description: WOØF Amateur, GMRS, SDR, and MeshCore radio station site for the greater Puget Sound area.
 ---
 
 ## Station Overview

@@ -1,3 +1,4 @@
+
 ---
 layout: default
 title: Weather + Lightning
@@ -185,8 +186,8 @@ permalink: /weather/
     and radio-focused operating notes in one place.
   </p>
   <p>
-    Weather and alerts are pulled through the WOØF droplet proxy, solar data comes from NOAA SWPC, and the page
-    refreshes automatically while it remains open.
+    Weather and NOAA alerts are retrieved through the WOØF Analyzer weather proxy on the M6 server.
+    Solar data comes from NOAA SWPC, and the page refreshes automatically while it remains open.
   </p>
 </div>
 

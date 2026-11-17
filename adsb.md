@@ -7,95 +7,135 @@ permalink: /adsb/
 
 # ADS-B Aircraft Tracking
 
-Live aircraft tracking from the WOØF receiving station in Shoreline, Washington.
-
-Our station monitors aircraft transmissions on both **1090 MHz ADS-B** and **978 MHz UAT**, covering the greater Seattle and Puget Sound region.
+Live aircraft tracking on **1090 MHz ADS-B** and **978 MHz UAT** from the WOØF receiving station in Shoreline, Washington.
 
 <style>
-  .adsb-feed-grid {
+  .adsb-mini-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 15px;
-    margin: 20px 0;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin: 14px 0 18px;
   }
 
-  .adsb-feed-card {
+  .adsb-mini-card {
+    min-width: 0;
     background: #161b22;
     border: 1px solid #30363d;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 9px;
+    padding: 13px 16px;
   }
 
-  .adsb-feed-card h3 {
+  .adsb-mini-title {
     color: #e6edf3;
-    margin: 0 0 12px;
-  }
-
-  .adsb-count {
-    color: #e6edf3;
-    font-size: 2.6rem;
+    font-size: 1rem;
     font-weight: 700;
-    line-height: 1.2;
+    margin-bottom: 5px;
+  }
+
+  .adsb-mini-reading {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+
+  .adsb-mini-count {
+    color: #e6edf3;
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.15;
     font-variant-numeric: tabular-nums;
   }
 
-  .adsb-count-label {
+  .adsb-mini-label {
     color: #8b949e;
-    font-size: 0.85rem;
-    margin-top: 4px;
+    font-size: 0.78rem;
   }
 
-  .adsb-feed-description {
-    color: #8b949e;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    margin: 14px 0;
-  }
-
-  .adsb-feed-status {
+  .adsb-mini-footer {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 8px;
-    color: #8b949e;
-    font-size: 0.85rem;
-    margin-top: 14px;
+    flex-wrap: wrap;
+    margin-top: 8px;
   }
 
-  .adsb-status-dot {
-    width: 9px;
-    height: 9px;
+  .adsb-mini-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: #8b949e;
+    font-size: 0.78rem;
+  }
+
+  .adsb-dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #8b949e;
     flex-shrink: 0;
   }
 
-  .adsb-status-dot.online {
+  .adsb-dot.online {
     background: #3fb950;
   }
 
-  .adsb-status-dot.warning {
+  .adsb-dot.warning {
     background: #d29922;
   }
 
-  .adsb-status-dot.offline {
+  .adsb-dot.offline {
     background: #f85149;
   }
 
-  .adsb-last-updated {
+  .adsb-mini-time {
     color: #8b949e;
-    font-size: 0.75rem;
-    margin-top: 8px;
+    font-size: 0.7rem;
+    margin-top: 5px;
   }
 
-  .adsb-feed-link {
-    display: inline-block;
-    margin-top: 15px;
+  .adsb-detail-button {
+    color: #58a6ff;
+    background: transparent;
+    border: 0;
+    padding: 2px 0;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.78rem;
+  }
+
+  .adsb-detail-button:hover {
+    text-decoration: underline;
+  }
+
+  .adsb-map-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .adsb-map-title {
+    color: #58a6ff;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+
+  .adsb-fullscreen {
+    color: #58a6ff;
+    font-size: 0.85rem;
+    text-decoration: none;
+  }
+
+  .adsb-fullscreen:hover {
+    text-decoration: underline;
   }
 
   .adsb-map-wrapper {
-    margin: 20px 0;
     border: 1px solid #30363d;
-    border-radius: 10px;
+    border-radius: 9px;
     overflow: hidden;
     background: #0d1117;
   }
@@ -103,142 +143,251 @@ Our station monitors aircraft transmissions on both **1090 MHz ADS-B** and **978
   .adsb-map-wrapper iframe {
     display: block;
     width: 100%;
-    height: 760px;
+    height: 750px;
     border: 0;
   }
 
-  .adsb-map-button {
-    display: inline-block;
-    background: #238636;
-    color: #ffffff !important;
-    padding: 12px 24px;
-    border-radius: 8px;
-    text-decoration: none;
+  .adsb-details-panel {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 9px;
+    padding: 16px;
+    margin-top: 16px;
+    scroll-margin-top: 20px;
+  }
+
+  .adsb-details-panel[hidden],
+  .adsb-table-wrap[hidden] {
+    display: none !important;
+  }
+
+  .adsb-details-heading {
+    color: #e6edf3;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .adsb-details-note {
+    color: #8b949e;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+  }
+
+  .adsb-table-wrap {
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .adsb-aircraft-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #e6edf3;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .adsb-aircraft-table th,
+  .adsb-aircraft-table td {
+    padding: 9px 10px;
+    border-bottom: 1px solid #30363d;
+    text-align: left;
+  }
+
+  .adsb-aircraft-table th {
+    color: #8b949e;
     font-weight: 600;
   }
 
-  .adsb-map-button:hover {
-    background: #2ea043;
+  .adsb-aircraft-table tr:last-child td {
+    border-bottom: 0;
   }
 
-  @media (max-width: 600px) {
+  .adsb-small-note {
+    color: #8b949e;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    margin: 12px 0 24px;
+  }
+
+  @media (max-width: 620px) {
+    .adsb-mini-grid {
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .adsb-mini-card {
+      padding: 10px 13px;
+    }
+
+    .adsb-mini-count {
+      font-size: 1.8rem;
+    }
+
     .adsb-map-wrapper iframe {
-      height: 600px;
+      height: 620px;
     }
   }
 </style>
 
-<div class="adsb-feed-grid">
+<div class="adsb-mini-grid">
 
-  <!-- 1090 MHz ADS-B -->
-  <div class="adsb-feed-card">
-    <h3>1090 MHz ADS-B</h3>
+  <section class="adsb-mini-card">
+    <div class="adsb-mini-title">1090 MHz ADS-B</div>
 
-    <div class="adsb-count" id="adsb-count-1090">—</div>
-    <div class="adsb-count-label">
-      Aircraft received in the last 60 seconds
+    <div class="adsb-mini-reading">
+      <strong class="adsb-mini-count" id="adsb-count-1090">—</strong>
+      <span class="adsb-mini-label">Aircraft / 60 sec</span>
     </div>
 
-    <div class="adsb-feed-status">
-      <span class="adsb-status-dot" id="adsb-dot-1090"></span>
-      <span id="adsb-status-1090">Connecting...</span>
+    <div class="adsb-mini-footer">
+      <span class="adsb-mini-status">
+        <span class="adsb-dot" id="adsb-dot-1090"></span>
+        <span id="adsb-status-1090">Connecting...</span>
+      </span>
+
+      <button type="button"
+              class="adsb-detail-button"
+              data-adsb-band="1090"
+              aria-controls="adsb-details-1090"
+              aria-expanded="false">
+        Aircraft details ↓
+      </button>
     </div>
 
-    <div class="adsb-last-updated" id="adsb-updated-1090">
+    <div class="adsb-mini-time" id="adsb-time-1090">
       Waiting for data
     </div>
+  </section>
 
-    <p class="adsb-feed-description">
-      Aircraft position and identification broadcasts,
-      primarily from commercial and general aviation aircraft.
-    </p>
+  <section class="adsb-mini-card">
+    <div class="adsb-mini-title">978 MHz UAT</div>
 
-    <a class="adsb-feed-link"
-       href="https://adsb.wo0f.com/data/aircraft.json"
-       target="_blank" rel="noopener">
-      View live data →
-    </a>
-  </div>
-
-  <!-- 978 MHz UAT -->
-  <div class="adsb-feed-card">
-    <h3>978 MHz UAT</h3>
-
-    <div class="adsb-count" id="adsb-count-978">—</div>
-    <div class="adsb-count-label">
-      Aircraft received in the last 60 seconds
+    <div class="adsb-mini-reading">
+      <strong class="adsb-mini-count" id="adsb-count-978">—</strong>
+      <span class="adsb-mini-label">Aircraft / 60 sec</span>
     </div>
 
-    <div class="adsb-feed-status">
-      <span class="adsb-status-dot" id="adsb-dot-978"></span>
-      <span id="adsb-status-978">Connecting...</span>
+    <div class="adsb-mini-footer">
+      <span class="adsb-mini-status">
+        <span class="adsb-dot" id="adsb-dot-978"></span>
+        <span id="adsb-status-978">Connecting...</span>
+      </span>
+
+      <button type="button"
+              class="adsb-detail-button"
+              data-adsb-band="978"
+              aria-controls="adsb-details-978"
+              aria-expanded="false">
+        Aircraft details ↓
+      </button>
     </div>
 
-    <div class="adsb-last-updated" id="adsb-updated-978">
+    <div class="adsb-mini-time" id="adsb-time-978">
       Waiting for data
     </div>
-
-    <p class="adsb-feed-description">
-      Aircraft broadcasts using the Universal Access
-      Transceiver system, primarily from equipped
-      general aviation aircraft.
-    </p>
-
-    <a class="adsb-feed-link"
-       href="https://adsb.wo0f.com/woof-uat/aircraft.json"
-       target="_blank" rel="noopener">
-      View live data →
-    </a>
-  </div>
+  </section>
 
 </div>
 
-<p style="color:#8b949e;font-size:0.8rem;">
-  Aircraft counts refresh every 5 seconds while this page is visible.
-  A count of zero means no recently received aircraft, not necessarily
-  that the receiver is offline. Status reflects data-feed availability.
-</p>
-
-## Live Aircraft Map
-
-The interactive map below displays aircraft received by the WOØF station.
-
-The dashboard includes independent 1090 MHz and 978 MHz aircraft counters, aircraft details, flight paths, and reception coverage.
+<div class="adsb-map-heading">
+  <span class="adsb-map-title">Live Aircraft Map</span>
+  <a class="adsb-fullscreen"
+     href="https://adsb.wo0f.com/"
+     target="_blank"
+     rel="noopener">
+    Open Full-Screen Map ↗
+  </a>
+</div>
 
 <div class="adsb-map-wrapper">
   <iframe
     src="https://adsb.wo0f.com/"
-    title="WOØF Live ADS-B Aircraft Tracking"
+    title="WOØF Live ADS-B Aircraft Map"
     loading="lazy"
     allowfullscreen>
   </iframe>
 </div>
 
-<div style="text-align:center;margin:20px 0 30px;">
-  <a class="adsb-map-button"
-     href="https://adsb.wo0f.com/"
-     target="_blank"
-     rel="noopener">
-    Open Full-Screen Aircraft Map ↗
-  </a>
+<div class="adsb-small-note">
+  Live aircraft counts refresh every 5 seconds while the page is visible.
+  Green indicates an available data feed; zero aircraft does not necessarily
+  mean the receiver is offline. The embedded map shows aircraft positions,
+  flight paths, and reception coverage.
 </div>
+
+<!-- AIRCRAFT DETAIL PANELS BELOW THE MAP -->
+
+<section class="adsb-details-panel"
+         id="adsb-details-1090"
+         hidden>
+
+  <div class="adsb-details-heading">
+    1090 MHz — Live Aircraft Details
+  </div>
+
+  <div class="adsb-details-note" id="adsb-note-1090">
+    Waiting for aircraft data...
+  </div>
+
+  <div class="adsb-table-wrap" id="adsb-table-wrap-1090" hidden>
+    <table class="adsb-aircraft-table">
+      <thead>
+        <tr>
+          <th>Flight</th>
+          <th>Aircraft</th>
+          <th>Altitude (ft)</th>
+          <th>Speed (kt)</th>
+          <th>Last Seen (s)</th>
+        </tr>
+      </thead>
+      <tbody id="adsb-rows-1090"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="adsb-details-panel"
+         id="adsb-details-978"
+         hidden>
+
+  <div class="adsb-details-heading">
+    978 MHz UAT — Live Aircraft Details
+  </div>
+
+  <div class="adsb-details-note" id="adsb-note-978">
+    Waiting for aircraft data...
+  </div>
+
+  <div class="adsb-table-wrap" id="adsb-table-wrap-978" hidden>
+    <table class="adsb-aircraft-table">
+      <thead>
+        <tr>
+          <th>Flight</th>
+          <th>Aircraft</th>
+          <th>Altitude (ft)</th>
+          <th>Speed (kt)</th>
+          <th>Last Seen (s)</th>
+        </tr>
+      </thead>
+      <tbody id="adsb-rows-978"></tbody>
+    </table>
+  </div>
+</section>
 
 ## About the Receiving Station
 
-The WOØF ADS-B station uses dedicated software-defined radio receivers to monitor aircraft transponder transmissions.
+The WOØF ADS-B receiving station is located in **Shoreline, Washington**, monitoring aircraft across the greater Seattle and Puget Sound region.
 
-- **Location:** Shoreline, Washington
-- **1090 MHz:** ADS-B / Mode S reception
+- **1090 MHz:** ADS-B and Mode S
 - **978 MHz:** Universal Access Transceiver (UAT)
-- **Tracking software:** readsb and tar1090
-- **Hosting:** Local Ubuntu Linux server
-- **Data access:** Cloudflare Tunnel over HTTPS
+- **Software:** readsb and tar1090
+- **Server:** Ubuntu Linux
+- **Public access:** Cloudflare Tunnel over HTTPS
+- **External feeds:** FlightAware and ADS-B Exchange
 
-Aircraft visibility depends on altitude, terrain, antenna coverage, and radio propagation.
+Aircraft visibility depends on altitude, antenna coverage, terrain, and radio propagation.
 
-The station also contributes aircraft data to FlightAware and ADS-B Exchange.
-
-*Aircraft tracking data is provided for informational and amateur radio experimentation purposes.*
+*Aircraft tracking data is provided for informational and radio experimentation purposes.*
 
 <script>
 (function () {
@@ -246,34 +395,171 @@ The station also contributes aircraft data to FlightAware and ADS-B Exchange.
 
   const BASE = "https://adsb.wo0f.com";
   const REFRESH_MS = 5000;
-  const MAX_SEEN_SECONDS = 60;
-  const MAX_FEED_AGE_SECONDS = 120;
+  const MAX_SEEN = 60;
+  const MAX_AGE = 120;
 
   let updating = false;
 
+  const latest = {
+    "1090": null,
+    "978": null
+  };
+
+  const bands = ["1090", "978"];
+
+  function el(id) {
+    return document.getElementById(id);
+  }
+
   function setCard(band, count, status, state, success) {
-    const countEl = document.getElementById("adsb-count-" + band);
-    const statusEl = document.getElementById("adsb-status-" + band);
-    const dotEl = document.getElementById("adsb-dot-" + band);
-    const updatedEl = document.getElementById("adsb-updated-" + band);
+    el("adsb-count-" + band).textContent =
+      count === null ? "—" : count;
 
-    if (!countEl || !statusEl || !dotEl || !updatedEl) return;
+    el("adsb-status-" + band).textContent = status;
 
-    countEl.textContent = count === null ? "—" : count;
-    statusEl.textContent = status;
-    dotEl.className = "adsb-status-dot " + state;
+    el("adsb-dot-" + band).className =
+      "adsb-dot " + state;
 
-    if (success) {
-      updatedEl.textContent =
-        "Last checked: " + new Date().toLocaleTimeString();
-    } else {
-      updatedEl.textContent = "Unable to update";
+    el("adsb-time-" + band).textContent = success
+      ? "Updated " + new Date().toLocaleTimeString()
+      : "Unable to update";
+  }
+
+  function formatNumber(value) {
+    if (value === null ||
+        value === undefined ||
+        value === "") return "—";
+
+    const n = Number(value);
+
+    return Number.isFinite(n)
+      ? Math.round(n).toLocaleString()
+      : "—";
+  }
+
+  function formatAltitude(a) {
+    const altitude = a.alt_baro ?? a.alt_geom;
+
+    if (altitude === "ground") return "Ground";
+
+    return formatNumber(altitude);
+  }
+
+  function setList(band, aircraft, message) {
+    latest[band] = { aircraft, message };
+    renderList(band);
+  }
+
+  function renderList(band) {
+    const panel = el("adsb-details-" + band);
+
+    if (panel.hidden) return;
+
+    const note = el("adsb-note-" + band);
+    const wrap = el("adsb-table-wrap-" + band);
+    const body = el("adsb-rows-" + band);
+    const data = latest[band];
+
+    body.replaceChildren();
+
+    if (!data) {
+      note.textContent = "Waiting for aircraft data...";
+      wrap.hidden = true;
+      return;
     }
+
+    if (!data.aircraft) {
+      note.textContent =
+        data.message || "Aircraft feed unavailable.";
+      wrap.hidden = true;
+      return;
+    }
+
+    if (data.aircraft.length === 0) {
+      note.textContent =
+        "No aircraft received in the last 60 seconds.";
+      wrap.hidden = true;
+      return;
+    }
+
+    note.textContent =
+      data.aircraft.length +
+      " aircraft received in the last 60 seconds.";
+
+    wrap.hidden = false;
+
+    const sorted = [...data.aircraft].sort((a, b) =>
+      String(a.flight || a.hex || "").localeCompare(
+        String(b.flight || b.hex || "")
+      )
+    );
+
+    for (const a of sorted) {
+      const row = document.createElement("tr");
+
+      const values = [
+        String(a.flight || "").trim() ||
+          String(a.hex || "Unknown"),
+        a.t || "—",
+        formatAltitude(a),
+        formatNumber(a.gs),
+        formatNumber(a.seen)
+      ];
+
+      for (const value of values) {
+        const td = document.createElement("td");
+        td.textContent = value;
+        row.appendChild(td);
+      }
+
+      body.appendChild(row);
+    }
+  }
+
+  function setupDetailButtons() {
+    document.querySelectorAll(
+      "[data-adsb-band]"
+    ).forEach(button => {
+
+      button.addEventListener("click", () => {
+        const band = button.dataset.adsbBand;
+        const panel = el("adsb-details-" + band);
+        const opening = panel.hidden;
+
+        // Keep only one aircraft detail panel open.
+        for (const otherBand of bands) {
+          el("adsb-details-" + otherBand).hidden = true;
+        }
+
+        document.querySelectorAll(
+          "[data-adsb-band]"
+        ).forEach(b => {
+          b.setAttribute("aria-expanded", "false");
+          b.textContent = "Aircraft details ↓";
+        });
+
+        if (opening) {
+          panel.hidden = false;
+          button.setAttribute("aria-expanded", "true");
+          button.textContent = "Hide aircraft details ↑";
+
+          renderList(band);
+
+          panel.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+        }
+      });
+    });
   }
 
   async function getAircraft(path) {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 4000);
+
+    const timeout = setTimeout(
+      () => controller.abort(), 7000
+    );
 
     try {
       const response = await fetch(BASE + path, {
@@ -296,16 +582,17 @@ The station also contributes aircraft data to FlightAware and ADS-B Exchange.
 
       if (
         !Number.isFinite(feedTime) ||
-        Math.abs(Date.now() / 1000 - feedTime) >
-          MAX_FEED_AGE_SECONDS
+        Math.abs(Date.now() / 1000 - feedTime) > MAX_AGE
       ) {
         throw new Error("Stale aircraft data");
       }
 
       return data.aircraft.filter(a =>
-        a.seen === undefined ||
-        Number(a.seen) <= MAX_SEEN_SECONDS
+        a &&
+        (a.seen === undefined ||
+         Number(a.seen) <= MAX_SEEN)
       );
+
     } finally {
       clearTimeout(timeout);
     }
@@ -322,72 +609,95 @@ The station also contributes aircraft data to FlightAware and ADS-B Exchange.
         getAircraft("/woof-uat/aircraft.json")
       ]);
 
-      // 978 MHz independent count
+      // 978 MHz independent aircraft count.
       if (uat.status === "fulfilled") {
         const count = uat.value.length;
 
         setCard(
           "978",
           count,
-          count > 0 ? "Live aircraft detected" : "Online - No aircraft",
+          count > 0 ? "Live aircraft" : "Feed online",
           "online",
           true
         );
+
+        setList("978", uat.value, "");
+
       } else {
         setCard(
-          "978",
-          null,
-          "Feed unavailable or stale",
-          "offline",
-          false
+          "978", null,
+          "Feed unavailable",
+          "offline", false
+        );
+
+        setList(
+          "978", null,
+          "978 MHz data feed unavailable or stale."
         );
       }
 
-      // 1090 MHz independent count
-      // Exclude UAT aircraft already merged into readsb.
+      // Subtract merged UAT aircraft from readsb
+      // to preserve independent 1090 MHz counts.
       if (
         main.status === "fulfilled" &&
         uat.status === "fulfilled"
       ) {
         const uatHex = new Set(
-          uat.value.map(a => a.hex)
+          uat.value
+            .map(a => String(a.hex || "").toLowerCase())
+            .filter(Boolean)
         );
 
-        const count = main.value.filter(a =>
-          !uatHex.has(a.hex) &&
-          !String(a.type || "").startsWith("uat")
-        ).length;
+        const aircraft1090 = main.value.filter(a =>
+          !uatHex.has(String(a.hex || "").toLowerCase()) &&
+          !String(a.type || "").toLowerCase().startsWith("uat")
+        );
+
+        const count = aircraft1090.length;
 
         setCard(
           "1090",
           count,
-          count > 0 ? "Live aircraft detected" : "Online - No aircraft",
+          count > 0 ? "Live aircraft" : "Feed online",
           "online",
           true
         );
+
+        setList("1090", aircraft1090, "");
+
       } else if (main.status === "fulfilled") {
         setCard(
-          "1090",
-          null,
-          "Waiting for UAT feed",
-          "warning",
-          false
+          "1090", null,
+          "Waiting for UAT",
+          "warning", false
         );
+
+        setList(
+          "1090", null,
+          "Waiting for UAT data to prevent double-counting."
+        );
+
       } else {
         setCard(
-          "1090",
-          null,
-          "Feed unavailable or stale",
-          "offline",
-          false
+          "1090", null,
+          "Feed unavailable",
+          "offline", false
+        );
+
+        setList(
+          "1090", null,
+          "1090 MHz data feed unavailable or stale."
         );
       }
+
     } finally {
       updating = false;
     }
   }
 
   function start() {
+    setupDetailButtons();
+
     refreshCounts();
 
     setInterval(refreshCounts, REFRESH_MS);
@@ -399,9 +709,11 @@ The station also contributes aircraft data to FlightAware and ADS-B Exchange.
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", start, {
-      once: true
-    });
+    document.addEventListener(
+      "DOMContentLoaded",
+      start,
+      { once: true }
+    );
   } else {
     start();
   }
